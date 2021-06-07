@@ -42,7 +42,7 @@ const TodoItems = () => {
 
   useEffect(() => {
     const syncTodoist = async () => {
-      const result = await axiosInstance.get("tasks")
+      const result = await axiosInstance.get("tasks", { params: { filter: "today | overdue" } })
 
       console.log(result.data)
       setItems(result.data)
@@ -53,7 +53,8 @@ const TodoItems = () => {
 
   return (
     <div>
-      {items.map((item) => (<p>{item.content}</p>))}
+      <h1>Today's Tasks</h1>
+      {items.map((item) => (<p key={item.id}>{item.content} - {item.due.string}</p>))}
     </div>
   );
 }
