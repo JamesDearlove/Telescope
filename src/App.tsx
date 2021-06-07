@@ -1,24 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
+const TODOIST_KEY = ""
+
+const Todoist = () => {
+
+
+
+  return <></>
+}
+
 function App() {
+  const [value, setValue] = useState("");
+
+  const [options, setOptions] = useState<string[]>([]);
+
+  const onTextChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+    setValue(event.target.value);
+    generateOpions(event.target.value.toString())
+  }
+
+  const generateOpions = (value: string) => {
+    if (value === "g") {
+      setOptions([ "https://google.com" ])
+    } else {
+      setOptions([])
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input type="text" autoFocus value={value} onChange={onTextChange}></input>
+      <p>{value}</p>
+      {options.map((item) => (
+        <p>{item}</p>
+      ))}
     </div>
   );
 }
