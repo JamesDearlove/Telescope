@@ -42,25 +42,28 @@ export const Search = () => {
 
   return (
     <>
-      <div className="mt-24 rounded-lg shadow-lg border w-8/12 max-w-screen-md">
+      <div className="mt-24 w-8/12 max-w-screen-md rounded-lg shadow border dark:border-black bg-white dark:bg-gray-800">
         <form onSubmit={onSubmit}>
           <div className="flex">
             <input
-              className="p-4 flex-grow focus:outline-none"
+              className="p-4 flex-grow rounded-l-lg focus:outline-none dark:bg-gray-800"
               type="text"
               placeholder="What's next?"
               autoFocus
               value={value}
               onChange={onTextChange}
             />
-            <button className="p-4 bg-white focus:outline-none hover:bg-gray-100" type="submit">
+            <button
+              className="p-4 rounded-r-lg focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-900"
+              type="submit"
+            >
               Go
             </button>
           </div>
         </form>
       </div>
       {autoComplete !== "" && (
-        <div className="rounded-lg shadow border w-8/12 max-w-screen-md mt-40 p-4 absolute z-10 bg-white">
+        <div className="w-8/12 max-w-screen-md mt-40 px-4 py-2 absolute z-10 rounded-lg shadow border dark:border-black bg-white dark:bg-gray-800">
           <p>{autoComplete}</p>
         </div>
       )}
