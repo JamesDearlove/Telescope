@@ -58,13 +58,17 @@ export const TodoItems = () => {
   }, [apiKey]);
 
   return (
-    <div>
-      <h1>Today's Tasks</h1>
-      {items.map((item) => (
-        <p key={item.id}>
-          {item.content} - {item.due.string}
-        </p>
-      ))}
+    <div className="mt-32">
+      <h1 className="text-4xl mb-4">Today's Tasks</h1>
+      <ul>
+        {items.map((item) => (
+          <li key={item.id}>
+            <a href={item.url}>
+              {item.content} - {item.due.string}
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

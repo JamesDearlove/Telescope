@@ -42,7 +42,7 @@ export const Search = () => {
 
   return (
     <>
-      <div className="mt-24 w-8/12 max-w-screen-md rounded-lg shadow border dark:border-black bg-white dark:bg-gray-800">
+      <div className="mt-24 w-10/12 md:w-8/12 max-w-screen-md rounded-lg shadow border dark:border-black bg-white dark:bg-gray-800">
         <form onSubmit={onSubmit}>
           <div className="flex">
             <input
@@ -63,7 +63,7 @@ export const Search = () => {
         </form>
       </div>
       {autoComplete !== "" && (
-        <div className="w-8/12 max-w-screen-md mt-40 px-4 py-2 absolute z-10 rounded-lg shadow border dark:border-black bg-white dark:bg-gray-800">
+        <div className="w-10/12 md:w-8/12 max-w-screen-md mt-40 px-4 py-2 absolute z-10 rounded-lg shadow border dark:border-black bg-white dark:bg-gray-800">
           <p>{autoComplete}</p>
         </div>
       )}
