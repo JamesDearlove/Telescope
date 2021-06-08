@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 
+const isURL = (str: string) => {
+  const expression = /([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/gm
+  const regex = new RegExp(expression)
+  return str.match(regex) != null
+}
+
 export const Search = () => {
   const [value, setValue] = useState("");
   const [autoComplete, setAutoComplete] = useState("");
@@ -11,6 +17,16 @@ export const Search = () => {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (isURL(value)) {
+      if (value.includes("http") || value.includes("https")) {
+        window.location.href = value;
+        return;
+      } else {
+        window.location.href = `http://${value}`;
+        return;
+      }
+    }
 
     switch (value) {
       case "":
@@ -26,13 +42,14 @@ export const Search = () => {
       setAutoComplete(`DuckDuckGo Bang: ${value}`);
       return;
     }
+    if (isURL(value)) {
+      setAutoComplete(`Navigate to ${value}`);
+      return;
+    }
 
     switch (value) {
       case "":
         setAutoComplete("");
-        break;
-      case "y":
-        setAutoComplete("Open YouTube");
         break;
       default:
         setAutoComplete(`Search: ${value}`);
