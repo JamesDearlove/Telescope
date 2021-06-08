@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 
 const isURL = (str: string) => {
-  const expression = /([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/gm
-  const regex = new RegExp(expression)
-  return str.match(regex) != null
-}
+  // const expression = /([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/gm
+  const expression =
+    /([\w+]+:\/\/)?([\w\d-]+\.)*[\w-]+[.:]\w+([/?=&#.]?[\w-]+)*\/?/gm;
+  const regex = new RegExp(expression);
+  return str.match(regex) != null;
+};
 
 export const Search = () => {
   const [value, setValue] = useState("");
