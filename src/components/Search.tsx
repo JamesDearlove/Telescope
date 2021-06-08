@@ -12,16 +12,12 @@ export const Search = () => {
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (value === "y") {
-      window.location.href = "https://youtube.com";
-    } else {
-      window.location.href = `https://duckduckgo.com/?q=${value}`
-    }
+    window.location.href = `https://duckduckgo.com/?q=${value}`
   };
 
   const generateOptions = (value: string) => {
     if (value.startsWith("!")) {
-        setAutoComplete("Commands: !add");
+        setAutoComplete(`DuckDuckGo Bang: ${value}`);
         return
     }
 
