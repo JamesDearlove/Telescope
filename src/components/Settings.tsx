@@ -5,10 +5,12 @@ export const Settings = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [todoistKey, setTodoistKey] = useState("");
   const [backgroundImg, setBackgroundImg] = useState("");
+  const [textColour, setTextColour] = useState("");
 
   useEffect(() => {
     setTodoistKey(localStorage.getItem("TodoistKey") || "");
     setBackgroundImg(localStorage.getItem("BackgroundImg") || "");
+    setTextColour(localStorage.getItem("TextColour") || "");
   }, []);
 
   const toggleShowSettings = () => setShowSettings(!showSettings);
@@ -23,9 +25,14 @@ export const Settings = () => {
     setBackgroundImg(event.target.value);
   };
 
+  const textColourOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTextColour(event.target.value);
+  }
+
   const settingsSaveOnClick = () => {
     localStorage.setItem("TodoistKey", todoistKey);
     localStorage.setItem("BackgroundImg", backgroundImg);
+    localStorage.setItem("TextColour", textColour);
     setShowSettings(false);
   };
 
@@ -52,6 +59,13 @@ export const Settings = () => {
             placeholder="Background Image"
             value={backgroundImg}
             onChange={backgroundImgOnChange}
+          />
+          <input
+            className="p-2 mb-2 w-56 rounded-lg border focus:outline-none dark:bg-gray-800"
+            type="text"
+            placeholder="Text Colour Class Override"
+            value={textColour}
+            onChange={textColourOnChange}
           />
           <button
             className="p-2 w-32 rounded-lg border"
