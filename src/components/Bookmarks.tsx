@@ -12,6 +12,7 @@ const BookmarkItem = (props: ItemProps) => {
         <div className="flex-grow flex justify-center content-center">
           <img
             className="mt-2 h-4 w-4"
+            alt={`${props.name} icon`}
             src={`http://www.google.com/s2/favicons?domain=${props.url}`}
           />
         </div>
