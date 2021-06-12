@@ -35,38 +35,42 @@ export const TodoItems = () => {
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState<TodoistItem[]>([]);
   const [apiKey, setApiKey] = useState("");
+  const [filter, setFilter] = useState("");
   const [textColour, setTextColour] = useState("");
 
   useEffect(() => {
-    const key = localStorage.getItem("TodoistKey");
+    setApiKey(localStorage.getItem("TodoistKey") || "");
     setTextColour(localStorage.getItem("TextColour") || "");
-
-    if (key) {
-      setApiKey(key);
-    }
-    setLoading(false);
+    setFilter(
+      localStorage.getItem("TodoistFilter") ||
+        "(today | overdue) & !assigned to: others"
+    );
   }, []);
 
   useEffect(() => {
     const syncTodoist = async () => {
       const result = await axiosInstance.get("tasks", {
-        params: { filter: "today | overdue" },
+        params: { filter: filter },
         headers: { Authorization: `Bearer ${apiKey}` },
       });
 
       setItems(result.data);
+      setLoading(false);
     };
 
     if (apiKey !== "") {
       syncTodoist();
     }
-  }, [apiKey]);
+  }, [apiKey, filter]);
 
   return (
-    <div className={`mt-32 ${textColour}`}>
+    <div
+      className={`mt-32`}
+      style={{ color: textColour !== "" ? `${textColour}` : "" }}
+    >
       <h1 className="text-4xl mb-4">Today's Tasks</h1>
       {loading ? (
-        <></>
+        <p>...</p>
       ) : items.length === 0 ? (
         <p>You're done for the day!</p>
       ) : (
