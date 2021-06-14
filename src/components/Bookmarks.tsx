@@ -7,8 +7,8 @@ interface ItemProps {
 
 const BookmarkItem = (props: ItemProps) => {
   return (
-    <div className="m-2 p-2 h-20 w-24 rounded-lg shadow border dark:border-black bg-white dark:bg-gray-800 flex flex-col  hover:bg-gray-100 dark:hover:bg-gray-900">
-      <a href={props.url}>
+    <a className="m-2" href={props.url}>
+      <div className="p-2 h-20 w-24 rounded-lg shadow border dark:border-black bg-white dark:bg-gray-800 flex flex-col  hover:bg-gray-100 dark:hover:bg-gray-900">
         <div className="flex-grow flex justify-center content-center">
           <img
             className="mt-2 h-4 w-4"
@@ -16,9 +16,9 @@ const BookmarkItem = (props: ItemProps) => {
             src={`http://www.google.com/s2/favicons?domain=${props.url}`}
           />
         </div>
-        <p className="mt-3 text-center text-xs">{props.name}</p>
-      </a>
-    </div>
+        <p className="mb-2 text-center text-xs">{props.name}</p>
+      </div>
+    </a>
   );
 };
 
