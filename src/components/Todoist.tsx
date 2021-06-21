@@ -65,7 +65,7 @@ export const TodoItems = () => {
 
   return (
     <div
-      className={`mb-32 color-black`}
+      className={`color-black mx-auto w-72`}
       style={{ color: textColour !== "" ? `${textColour}` : "" }}
     >
       <h1 className="text-4xl mb-4">Today's Tasks</h1>

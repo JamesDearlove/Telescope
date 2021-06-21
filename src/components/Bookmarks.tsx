@@ -24,7 +24,7 @@ const BookmarkItem = (props: ItemProps) => {
 
 export const Bookmarks = () => {
   return (
-    <div className="content-self-start mb-32 w-10/12 md:w-8/12 max-w-screen-md ">
+    <div className="content-self-start w-10/12 md:w-8/12 max-w-screen-md mx-auto">
       <div className="flex flex-wrap justify-center">
         <BookmarkItem name="Twitter" url="https://twitter.com" />
         <BookmarkItem name="Reddit" url="https://reddit.com" />

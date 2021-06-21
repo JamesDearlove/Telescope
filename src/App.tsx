@@ -15,16 +15,22 @@ function App() {
     backgroundSize: "cover",
   };
 
-  // TODO: I don't like how the page is laid out, switching to a grid might be good here.
+
   return (
     <div
-      className="h-screen flex flex-col justify-between items-center dark:text-white bg-white dark:bg-gray-900"
+      className="h-screen w-screen grid grid-cols-1 grid-rows-layout p-4 gap-4 bg-white justify-between justify-items-center dark:text-white dark:bg-gray-900"
       style={style}
     >
-      <Search />
-      <TodoItems />
-      <Bookmarks />
-      <Settings  />
+      <div className="row-start-1 w-full">
+        <Search />
+      </div>
+      <div className="row-start-2 w-full">
+        <TodoItems />
+      </div>
+      <div className="row-start-3 w-full">
+        <Bookmarks />
+      </div>
+      <Settings />
     </div>
   );
 }
