@@ -83,7 +83,7 @@ export const Search = () => {
       </div>
       {autoComplete !== "" && (
         <div className="w-10/12 md:w-8/12 max-w-screen-md mt-2 mx-auto px-4 py-2 z-10 rounded-lg shadow border dark:border-black bg-white dark:bg-gray-800 overflow-hidden">
-          <span >{autoComplete}</span>
+          <span>{autoComplete}</span>
         </div>
       )}
     </>

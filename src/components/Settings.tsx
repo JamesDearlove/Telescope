@@ -23,8 +23,10 @@ export const Settings = () => {
   const todoistKeyOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTodoistKey(event.target.value);
   };
-  
-  const todoistFilterOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+  const todoistFilterOnChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setTodoistFilter(event.target.value);
   };
 
