@@ -3,6 +3,7 @@ import { Bookmarks } from "./components/Bookmarks";
 import { Search } from "./components/Search";
 import { Settings } from "./components/Settings";
 import { TodoItems } from "./components/Todoist";
+import { page } from "./styles";
 
 function App() {
   const backgroundImg = localStorage.getItem("BackgroundImg");
@@ -16,10 +17,7 @@ function App() {
   };
 
   return (
-    <div
-      className="h-screen w-screen grid grid-cols-1 grid-rows-layout p-4 gap-4 bg-white justify-between justify-items-center dark:text-white dark:bg-gray-900"
-      style={style}
-    >
+    <div className={page} style={style}>
       <div className="row-start-1 w-full">
         <Search />
       </div>

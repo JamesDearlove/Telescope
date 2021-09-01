@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { background, base, combineStyles, hover } from "../styles";
 
 const isURL = (str: string) => {
   // const expression = /([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/gm
@@ -61,11 +62,19 @@ export const Search = () => {
 
   return (
     <>
-      <div className="w-10/12 md:w-8/12 max-w-screen-md mt-24 mx-auto rounded-lg shadow border dark:border-black bg-white dark:bg-gray-800">
+      <div
+        className={combineStyles([
+          base,
+          "w-10/12 md:w-8/12 max-w-screen-md mt-24 mx-auto",
+        ])}
+      >
         <form onSubmit={onSubmit}>
           <div className="flex">
             <input
-              className="p-4 flex-grow rounded-l-lg focus:outline-none dark:bg-gray-800"
+              className={combineStyles([
+                background,
+                "p-4 flex-grow rounded-l-lg focus:outline-none",
+              ])}
               type="text"
               placeholder="What's next?"
               autoFocus
@@ -73,7 +82,11 @@ export const Search = () => {
               onChange={onTextChange}
             />
             <button
-              className="p-4 rounded-r-lg focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-900"
+              className={combineStyles([
+                background,
+                hover,
+                "p-4 rounded-r-lg focus:outline-none",
+              ])}
               type="submit"
             >
               Go
@@ -82,7 +95,12 @@ export const Search = () => {
         </form>
       </div>
       {autoComplete !== "" && (
-        <div className="w-10/12 md:w-8/12 max-w-screen-md mt-2 mx-auto px-4 py-2 z-10 rounded-lg shadow border dark:border-black bg-white dark:bg-gray-800 overflow-hidden">
+        <div
+          className={combineStyles([
+            base,
+            "w-10/12 md:w-8/12 max-w-screen-md mt-2 mx-auto px-4 py-2 z-10 relative overflow-hidden",
+          ])}
+        >
           <span>{autoComplete}</span>
         </div>
       )}

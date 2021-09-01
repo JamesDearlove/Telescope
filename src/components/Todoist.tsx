@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { base, hover, selected, combineStyles } from "../styles";
 
 const axiosInstance = axios.create({
   baseURL: "https://api.todoist.com/rest/v1/",
@@ -34,14 +35,12 @@ interface TodoistDue {
 const TodoItem = (item: TodoistItem) => {
   const [open, setOpen] = useState(false);
 
-  const backgroundColour = open
-    ? "bg-black bg-opacity-50"
-    : "hover:bg-black hover:bg-opacity-50";
+  const backgroundColour = open ? selected : hover;
 
   return (
     <li className={backgroundColour}>
       <div
-        className="px-4 py-2 w-100 rounded-lg flex justify-between cursor-pointer"
+        className="px-4 py-2 w-100 flex justify-between cursor-pointer"
         onClick={() => setOpen(!open)}
       >
         <div className="flex flex-col">
@@ -92,15 +91,15 @@ export const TodoItems = () => {
   }, [apiKey, filter]);
 
   return (
-    <div className="mx-auto w-96 h-full overflow-auto rounded-lg w-72 bg-black bg-opacity-70">
+    <div className={combineStyles([base, "mx-auto w-96 h-full overflow-auto"])}>
       <h1 className="text-xl p-4">Today's Tasks</h1>
-      <div className="">
+      <div>
         {loading ? (
           <p className="p-4">...</p>
         ) : items.length === 0 ? (
           <p className="p-4">You're done for the day!</p>
         ) : (
-          <ul className="">
+          <ul>
             {items.map((item) => (
               <TodoItem key={item.id} {...item} />
             ))}

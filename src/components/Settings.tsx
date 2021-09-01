@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CogIcon } from "@heroicons/react/outline";
+import { Textbox } from "./common/Textbox";
+import { FormButton } from "./common/FormButton";
 
 export const Settings = () => {
   const [showSettings, setShowSettings] = useState(false);
@@ -59,41 +61,34 @@ export const Settings = () => {
       {showSettings && (
         <div className="absolute bottom-20 w-64 right-8 p-4 flex flex-col rounded-lg shadow border dark:border-black bg-white dark:bg-gray-800">
           <h1 className="mb-2">Todoist</h1>
-          <input
-            className="p-2 mb-2 w-56 rounded-lg border focus:outline-none dark:bg-gray-800"
+          <Textbox
             type="text"
             placeholder="Todoist API Key"
             value={todoistKey}
             onChange={todoistKeyOnChange}
           />
-          <input
-            className="p-2 mb-2 w-56 rounded-lg border focus:outline-none dark:bg-gray-800"
+          <Textbox
             type="text"
             placeholder="Todoist Task Filter"
             value={todoistFilter}
             onChange={todoistFilterOnChange}
           />
           <h1 className="my-2">Style</h1>
-          <input
-            className="p-2 mb-2 w-56 rounded-lg border focus:outline-none dark:bg-gray-800"
+          <Textbox
             type="text"
             placeholder="Background Image"
             value={backgroundImg}
             onChange={backgroundImgOnChange}
           />
-          <input
-            className="p-2 mb-2 w-56 rounded-lg border focus:outline-none dark:bg-gray-800"
+          <Textbox
             type="text"
             placeholder="Text Colour Override"
             value={textColour}
             onChange={textColourOnChange}
           />
-          <button
-            className="p-2 w-32 mt-2 rounded-lg border"
-            onClick={settingsSaveOnClick}
-          >
+          <FormButton addClasses="p-2 w-32 mt-2" onClick={settingsSaveOnClick}>
             Save
-          </button>
+          </FormButton>
         </div>
       )}
     </>
