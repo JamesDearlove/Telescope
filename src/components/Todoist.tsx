@@ -1,43 +1,28 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
 import { base, hover, selected, combineStyles } from "../styles";
 
-const axiosInstance = axios.create({
-  baseURL: "https://api.todoist.com/rest/v1/",
-});
-
-interface TodoistItem {
-  id: number;
-  project_id: number;
-  section_id: number;
-  content: string;
-  description: string;
-  completed: boolean;
-  label_ids: number[];
-  parent_id: number;
-  order: number;
-  priority: 1 | 2 | 3 | 4 | undefined;
-  due: TodoistDue;
-  url: string;
-  comment_count: number;
-  assignee: number;
-  assigner: number;
-}
-
-interface TodoistDue {
-  string: string;
-  date: string;
-  recurring: boolean;
-  datetime?: string;
-  timezone?: string;
-}
+import {
+  TodoistItem,
+  relativeDateTime,
+  getTasks,
+  getProjects,
+  TodoistProject,
+} from "../todoist";
 
 const TodoItem = (item: TodoistItem) => {
+  const projectQuery = useQuery("projects", getProjects);
   const [open, setOpen] = useState(false);
 
   const backgroundColour = open ? selected : hover;
 
-  return (
+  const getProject = (projectId: number): TodoistProject | undefined => {
+    return projectQuery.data?.find((item) => item.id === projectId)
+  }
+
+  return projectQuery.isLoading ? (
+    <></>
+  ) : (
     <li className={backgroundColour}>
       <div
         className="px-4 py-2 w-100 flex justify-between cursor-pointer"
@@ -45,10 +30,10 @@ const TodoItem = (item: TodoistItem) => {
       >
         <div className="flex flex-col">
           <span className="text-base">{item.content}</span>
-          <span className="text-sm">{item.project_id}</span>
+          <span className="text-sm">{getProject(item.project_id)?.name}</span>
         </div>
         <div className="">
-          <span className="text-base">{item.due.string}</span>
+          <span className="text-base">{relativeDateTime(item.due)}</span>
         </div>
       </div>
       <div className={open ? "flex justify-between px-4 pb-3 " : "hidden"}>
@@ -61,46 +46,20 @@ const TodoItem = (item: TodoistItem) => {
 };
 
 export const TodoItems = () => {
-  const [loading, setLoading] = useState(true);
-  const [items, setItems] = useState<TodoistItem[]>([]);
-  const [apiKey, setApiKey] = useState("");
-  const [filter, setFilter] = useState("");
-
-  useEffect(() => {
-    setApiKey(localStorage.getItem("TodoistKey") || "");
-    setFilter(
-      localStorage.getItem("TodoistFilter") ||
-        "(today | overdue) & !assigned to: others"
-    );
-  }, []);
-
-  useEffect(() => {
-    const syncTodoist = async () => {
-      const result = await axiosInstance.get("tasks", {
-        params: { filter: filter },
-        headers: { Authorization: `Bearer ${apiKey}` },
-      });
-
-      setItems(result.data);
-      setLoading(false);
-    };
-
-    if (apiKey !== "") {
-      syncTodoist();
-    }
-  }, [apiKey, filter]);
+  const taskQuery = useQuery("tasks", getTasks);
+  const projectQuery = useQuery("projects", getProjects);
 
   return (
     <div className={combineStyles([base, "mx-auto w-96 h-full overflow-auto"])}>
       <h1 className="text-xl p-4">Today's Tasks</h1>
       <div>
-        {loading ? (
+        {taskQuery.isLoading || projectQuery.isLoading ? (
           <p className="p-4">...</p>
-        ) : items.length === 0 ? (
+        ) : taskQuery.data?.length === 0 ? (
           <p className="p-4">You're done for the day!</p>
         ) : (
           <ul>
-            {items.map((item) => (
+            {taskQuery.data?.map((item) => (
               <TodoItem key={item.id} {...item} />
             ))}
           </ul>
