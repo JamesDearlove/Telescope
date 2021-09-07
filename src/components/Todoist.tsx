@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { base, hover, selected, combineStyles } from "../styles";
 
 import {
@@ -8,17 +8,25 @@ import {
   getTasks,
   getProjects,
   TodoistProject,
+  closeTask,
 } from "../todoist";
+import { TextLink } from "./common/TextLink";
 
 const TodoItem = (item: TodoistItem) => {
+  const queryClient = useQueryClient();
   const projectQuery = useQuery("projects", getProjects);
+  const completeMutation = useMutation((id: Number) => closeTask(id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries("tasks");
+    },
+  });
   const [open, setOpen] = useState(false);
 
   const backgroundColour = open ? selected : hover;
 
   const getProject = (projectId: number): TodoistProject | undefined => {
-    return projectQuery.data?.find((item) => item.id === projectId)
-  }
+    return projectQuery.data?.find((item) => item.id === projectId);
+  };
 
   return projectQuery.isLoading ? (
     <></>
@@ -37,9 +45,11 @@ const TodoItem = (item: TodoistItem) => {
         </div>
       </div>
       <div className={open ? "flex justify-between px-4 pb-3 " : "hidden"}>
-        <span>Complete</span>
-        <span>Tomorrow</span>
-        <a href={item.url}>Open in Todoist</a>
+        <TextLink onClick={() => completeMutation.mutate(item.id)}>
+          Complete
+        </TextLink>
+        {/* <span>Tomorrow</span> */}
+        <TextLink href={item.url}>Open in Todoist</TextLink>
       </div>
     </li>
   );

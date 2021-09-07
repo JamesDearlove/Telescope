@@ -9,7 +9,7 @@ export const base = [
   "rounded-lg shadow border dark:border-black",
 ].join(" ");
 
-export const button = [base, hover].join(" ");
+export const button = [base, hover, "cursor-pointer"].join(" ");
 
 export const textbox = [base, "focus:outline-none p-2 mb-2 w-56"].join(" ");
 
@@ -20,6 +20,9 @@ export const page = [
   pageBackground,
   pageForeground,
 ].join(" ");
+
+export const textHover =
+  "hover:text-gray-500 dark:hover:text-gray-300 cursor-pointer";
 
 export const combineStyles = (styles: string[]) => {
   return styles.join(" ");

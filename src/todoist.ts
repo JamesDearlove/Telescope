@@ -1,6 +1,8 @@
 import axios from "axios";
 import { formatRelative, parse } from "date-fns";
 
+const BASE_URL = "https://api.todoist.com/rest/v1/";
+
 export interface TodoistItem {
   id: number;
   project_id: number;
@@ -43,21 +45,29 @@ export interface TodoistProject {
 }
 
 /**
+ * Get the Todoist API key from local storage.
+ * Throws an error if there is no API key.
+ * @returns The stored Todoist API key.
+ */
+const getApiKey = (): string => {
+  const apiKey = localStorage.getItem("TodoistKey");
+  if (!apiKey) {
+    throw new Error("No Todoist API key.");
+  }
+  return apiKey;
+};
+
+/**
  * Send a GET request to the Todoist REST API.
  * @param endpoint Endpoint to send request to.
  * @param params (Optional) Any params for the request.
  * @returns The data if the request was successful.
  */
 const getData = async (endpoint: string, params?: any) => {
-  const apiKey = localStorage.getItem("TodoistKey");
-  if (!apiKey) {
-    throw new Error("No Todoist API key.");
-  }
-
   const response = await axios.get(endpoint, {
-    baseURL: "https://api.todoist.com/rest/v1/",
+    baseURL: BASE_URL,
     params: params,
-    headers: { Authorization: `Bearer ${apiKey}` },
+    headers: { Authorization: `Bearer ${getApiKey()}` },
   });
 
   if (response.status === 200) {
@@ -67,6 +77,19 @@ const getData = async (endpoint: string, params?: any) => {
     return {};
   } else {
     throw new Error(response.statusText);
+  }
+};
+
+const postData = async (endpoint: string, content?: any) => {
+  const response = await axios.post(endpoint, content, {
+    baseURL: BASE_URL,
+    headers: { Authorization: `Bearer ${getApiKey()}` },
+  });
+
+  if (response.status === 200 || response.status === 204) {
+    return await response.data;
+  } else {
+    throw Error(response.statusText);
   }
 };
 
@@ -91,11 +114,19 @@ export const getProjects = async (): Promise<TodoistProject[] | undefined> => {
 };
 
 /**
+ * Closes a task that is currently open.
+ * @param taskId The task to close
+ */
+export const closeTask = async (taskId: Number) => {
+  return postData(`tasks/${taskId}/close`);
+};
+
+/**
  * Converts the TodoistDue to a friendly date.
  * @param due The TodoistDue object.
  * @returns A friendly date if set, otherwise an empty string.
  */
-export const relativeDateTime = (due: TodoistDue) => {
+export const relativeDateTime = (due: TodoistDue): string => {
   const dueDateTime = due.datetime
     ? parse(due.datetime, "yyyy-MM-dd'T'HH:mm:ssXXX", new Date())
     : undefined;
