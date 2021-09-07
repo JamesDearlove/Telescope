@@ -4,6 +4,7 @@ export const hover = "hover:bg-gray-100 dark:hover:bg-gray-900";
 
 export const selected = "bg-gray-100 dark:bg-gray-900";
 
+export const rounded = "rounded-lg";
 export const base = [
   background,
   "rounded-lg shadow border dark:border-black",

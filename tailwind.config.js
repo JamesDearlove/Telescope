@@ -6,11 +6,16 @@ module.exports = {
       gridTemplateRows: {
         // Page Layout
         'layout': '180px minmax(0, 1fr) 250px',
-      }
+      },
+      width: {
+        '128': '32rem',
+        '144': '36rem',
+        '160': '40rem',
+      },
+      height: {
+        '128': '32rem',
+      },
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [],
 }
