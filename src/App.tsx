@@ -1,7 +1,7 @@
 import React from "react";
 import { Bookmarks } from "./components/Bookmarks";
 import { Search } from "./components/Search";
-import Settings from "./components/Settings";
+import Settings from "./components/settings";
 import { TodoItems } from "./components/Todoist";
 import { page } from "./styles";
 

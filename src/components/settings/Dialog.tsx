@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { XIcon } from "@heroicons/react/outline";
 import { base, combineStyles, rounded, selected } from "../../styles";
 import { GeneralPage } from "./GeneralPage";
+import { BookmarksPage } from "./BookmarksPage";
+import { TodoistPage } from "./TodoistPage";
+import { AboutPage } from "./AboutPage";
 
 interface Page {
   name: string;
@@ -10,9 +13,9 @@ interface Page {
 
 const pages: Page[] = [
   { name: "General", component: <GeneralPage /> },
-  { name: "Bookmarks", component: <></> },
-  { name: "Todoist", component: <></> },
-  { name: "About", component: <></> },
+  { name: "Bookmarks", component: <BookmarksPage /> },
+  { name: "Todoist", component: <TodoistPage /> },
+  { name: "About", component: <AboutPage /> },
 ];
 
 interface SidebarProps {
