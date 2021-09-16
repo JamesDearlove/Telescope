@@ -25,6 +25,8 @@ export const page = [
 export const textHover =
   "hover:text-gray-500 dark:hover:text-gray-300 cursor-pointer";
 
+export const textLink = [textHover, "underline"].join(" ");
+
 export const combineStyles = (styles: string[]) => {
   return styles.join(" ");
 };

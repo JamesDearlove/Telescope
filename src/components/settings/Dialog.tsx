@@ -62,7 +62,7 @@ export const Dialog = (props: DialogProps) => {
             "w-160 h-128 relative grid grid-cols-4",
           ])}
         >
-          <div className="p-2 col-span-1">
+          <div className="p-2 col-span-1 border-r dark:border-black">
             <Sidebar
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
