@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^6.1.2",
+    "@chakra-ui/react": "^1.6.7",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
     "@heroicons/react": "^1.0.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -14,6 +16,7 @@
     "@types/react-dom": "^17.0.0",
     "axios": "^0.21.1",
     "date-fns": "^2.23.0",
+    "framer-motion": "^4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-query": "^3.21.1",
@@ -22,9 +25,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -44,10 +47,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "autoprefixer": "^9",
-    "postcss": "^7",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   }
 }
