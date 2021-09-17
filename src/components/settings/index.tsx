@@ -1,21 +1,22 @@
 import React, { useState } from "react";
-import { CogIcon } from "@heroicons/react/outline";
+import { SettingsIcon } from "@chakra-ui/icons";
+import { IconButton } from "@chakra-ui/react";
 import { Dialog } from "./Dialog";
 
 const Settings = () => {
   const [open, setOpen] = useState(false);
 
-  const setClosed = () => setOpen(false);
-
   return (
     <>
-      <button
-        className="absolute bottom-8 right-8 focus:outline-none"
+      <IconButton
         onClick={() => setOpen(!open)}
-      >
-        <CogIcon className="h-7 w-7" />
-      </button>
-      {open && <Dialog setClosed={setClosed} />}
+        aria-label="Open settings"
+        icon={<SettingsIcon />}
+        position="absolute"
+        bottom={8}
+        right={8}
+      />
+      <Dialog open={open} setOpen={setOpen}/>
     </>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Box } from "@chakra-ui/react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { base, hover, selected, combineStyles } from "../styles";
+import { hover, selected } from "../styles";
 
 import {
   TodoistItem,
@@ -60,7 +61,8 @@ export const TodoItems = () => {
   const projectQuery = useQuery("projects", getProjects);
 
   return (
-    <div className={combineStyles([base, "mx-auto w-96 h-full overflow-auto"])}>
+    // <div className={combineStyles([base, "mx-auto w-96 h-full overflow-auto"])}>
+    <Box bg="gray.800" w={96} borderWidth="1px" borderRadius="md">
       <h1 className="text-xl p-4">Today's Tasks</h1>
       <div>
         {taskQuery.isLoading || projectQuery.isLoading ? (
@@ -75,6 +77,6 @@ export const TodoItems = () => {
           </ul>
         )}
       </div>
-    </div>
+    </Box>
   );
 };

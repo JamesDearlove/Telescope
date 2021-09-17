@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "./common/Button";
+import { Box, Button, Image } from "@chakra-ui/react";
 
 interface ItemProps {
   name: string;
@@ -9,19 +9,19 @@ interface ItemProps {
 const BookmarkItem = (props: ItemProps) => {
   const url = new URL(props.url);
 
+  const buttonClick = () => {
+    window.location.href = url.toString();
+  };
+
   return (
-    <a className="m-2" href={props.url}>
-      <Button addClasses="p-2 h-20 w-24 flex flex-col">
-        <div className="flex-grow flex justify-center content-center">
-          <img
-            className="mt-2 h-5 w-5"
-            alt={`${props.name} icon`}
-            src={`http://icons.duckduckgo.com/ip2/${url.host}.ico`}
-          />
-        </div>
-        <p className="mb-2 text-center text-xs">{props.name}</p>
-      </Button>
-    </a>
+    <Button onClick={buttonClick}>
+      <Image
+        boxSize={4}
+        src={`http://icons.duckduckgo.com/ip2/${url.host}.ico`}
+        alt={`${props.name} icon`}
+      />
+      {props.name}
+    </Button>
   );
 };
 
@@ -38,12 +38,10 @@ export const Bookmarks = () => {
   ];
 
   return (
-    <div className="content-self-start w-10/12 md:w-8/12 max-w-screen-md mx-auto">
-      <div className="flex flex-wrap justify-center">
-        {items.map((item) => (
-          <BookmarkItem key={item.name} {...item} />
-        ))}
-      </div>
-    </div>
+    <Box>
+      {items.map((item) => (
+        <BookmarkItem key={item.name} {...item} />
+      ))}
+    </Box>
   );
 };

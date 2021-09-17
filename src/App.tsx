@@ -3,32 +3,25 @@ import { Bookmarks } from "./components/Bookmarks";
 import { Search } from "./components/Search";
 import Settings from "./components/settings";
 import { TodoItems } from "./components/Todoist";
-import { page } from "./styles";
+import { Box, Grid } from "@chakra-ui/react";
 
 function App() {
   const backgroundImg = localStorage.getItem("BackgroundImg");
 
-  const style = {
-    background:
-      backgroundImg !== ""
-        ? `url(${backgroundImg}) no-repeat center center fixed`
-        : "",
-    backgroundSize: "cover",
-  };
+  const imageStyle =
+    backgroundImg !== ""
+      ? `url(${backgroundImg}) no-repeat center center fixed`
+      : "";
 
   return (
-    <div className={page} style={style}>
-      <div className="row-start-1 w-full">
+    <Box h="100vh" background={imageStyle} backgroundSize="cover">
+      <Grid h="100%" templateRows="180px minmax(min-content, 1fr) 250px">
         <Search />
-      </div>
-      <div className="row-start-2 w-full">
         <TodoItems />
-      </div>
-      <div className="row-start-3 w-full">
         <Bookmarks />
-      </div>
+      </Grid>
       <Settings />
-    </div>
+    </Box>
   );
 }
 
