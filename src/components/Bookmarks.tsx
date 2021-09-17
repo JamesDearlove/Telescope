@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Image } from "@chakra-ui/react";
+import { Button, Center, Image, Stack, Text } from "@chakra-ui/react";
 
 interface ItemProps {
   name: string;
@@ -14,13 +14,15 @@ const BookmarkItem = (props: ItemProps) => {
   };
 
   return (
-    <Button onClick={buttonClick}>
-      <Image
-        boxSize={4}
-        src={`http://icons.duckduckgo.com/ip2/${url.host}.ico`}
-        alt={`${props.name} icon`}
-      />
-      {props.name}
+    <Button onClick={buttonClick} w={24} h={20}>
+      <Stack direction="column" alignItems="center">
+        <Image
+          boxSize={4}
+          src={`http://icons.duckduckgo.com/ip2/${url.host}.ico`}
+          alt={`${props.name} icon`}
+        />
+        <Text fontSize="sm">{props.name}</Text>
+      </Stack>
     </Button>
   );
 };
@@ -38,10 +40,12 @@ export const Bookmarks = () => {
   ];
 
   return (
-    <Box>
-      {items.map((item) => (
-        <BookmarkItem key={item.name} {...item} />
-      ))}
-    </Box>
+    <Center>
+      <Stack direction={["column", "row"]} spacing={4} wrap="wrap">
+        {items.map((item) => (
+          <BookmarkItem key={item.name} {...item} />
+        ))}
+      </Stack>
+    </Center>
   );
 };

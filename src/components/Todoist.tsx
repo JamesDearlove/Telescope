@@ -1,7 +1,15 @@
 import React, { useState } from "react";
-import { Box } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Spacer,
+  Stack,
+  Text,
+  Spinner,
+} from "@chakra-ui/react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { hover, selected } from "../styles";
 
 import {
   TodoistItem,
@@ -11,7 +19,6 @@ import {
   TodoistProject,
   closeTask,
 } from "../todoist";
-import { TextLink } from "./common/TextLink";
 
 const TodoItem = (item: TodoistItem) => {
   const queryClient = useQueryClient();
@@ -23,36 +30,46 @@ const TodoItem = (item: TodoistItem) => {
   });
   const [open, setOpen] = useState(false);
 
-  const backgroundColour = open ? selected : hover;
-
   const getProject = (projectId: number): TodoistProject | undefined => {
     return projectQuery.data?.find((item) => item.id === projectId);
+  };
+
+  const openTodoist = () => {
+    window.location.href = item.url;
   };
 
   return projectQuery.isLoading ? (
     <></>
   ) : (
-    <li className={backgroundColour}>
-      <div
-        className="px-4 py-2 w-100 flex justify-between cursor-pointer"
-        onClick={() => setOpen(!open)}
-      >
-        <div className="flex flex-col">
-          <span className="text-base">{item.content}</span>
-          <span className="text-sm">{getProject(item.project_id)?.name}</span>
-        </div>
-        <div className="">
-          <span className="text-base">{relativeDateTime(item.due)}</span>
-        </div>
-      </div>
-      <div className={open ? "flex justify-between px-4 pb-3 " : "hidden"}>
-        <TextLink onClick={() => completeMutation.mutate(item.id)}>
-          Complete
-        </TextLink>
-        {/* <span>Tomorrow</span> */}
-        <TextLink href={item.url}>Open in Todoist</TextLink>
-      </div>
-    </li>
+    <Box
+      w="100%"
+      paddingX={4}
+      paddingY={2}
+      background={open ? "gray.900" : undefined}
+      onClick={() => setOpen(!open)}
+      _hover={{ background: "gray.900" }}
+    >
+      <Flex>
+        <Box>
+          <Text>{item.content}</Text>
+          <Text>{getProject(item.project_id)?.name}</Text>
+        </Box>
+        <Spacer />
+        <Text>{relativeDateTime(item.due)}</Text>
+      </Flex>
+      {open && (
+        <Flex marginTop={2}>
+          <Button size="sm" onClick={() => completeMutation.mutate(item.id)}>
+            Complete
+          </Button>
+          {/* <span>Tomorrow</span> */}
+          <Spacer />
+          <Button size="sm" onClick={openTodoist}>
+            Open in Todoist
+          </Button>
+        </Flex>
+      )}
+    </Box>
   );
 };
 
@@ -61,22 +78,33 @@ export const TodoItems = () => {
   const projectQuery = useQuery("projects", getProjects);
 
   return (
-    // <div className={combineStyles([base, "mx-auto w-96 h-full overflow-auto"])}>
-    <Box bg="gray.800" w={96} borderWidth="1px" borderRadius="md">
-      <h1 className="text-xl p-4">Today's Tasks</h1>
-      <div>
-        {taskQuery.isLoading || projectQuery.isLoading ? (
-          <p className="p-4">...</p>
-        ) : taskQuery.data?.length === 0 ? (
-          <p className="p-4">You're done for the day!</p>
-        ) : (
-          <ul>
-            {taskQuery.data?.map((item) => (
-              <TodoItem key={item.id} {...item} />
-            ))}
-          </ul>
-        )}
-      </div>
-    </Box>
+    <Center>
+      <Box bg="gray.800" w={96} h={96} borderWidth="1px" borderRadius="md">
+        <Flex>
+          <Text paddingTop={4} paddingLeft={4} marginBottom={2} fontSize="xl">
+            Today's Tasks
+          </Text>
+          <Spacer />
+          {(taskQuery.isFetching || projectQuery.isFetching) && (
+            <Center paddingRight={4}>
+              <Spinner />
+            </Center>
+          )}
+        </Flex>
+        <Box>
+          {taskQuery.isLoading || projectQuery.isLoading ? (
+            <></>
+          ) : taskQuery.data?.length === 0 ? (
+            <Text padding={4}>You're done for the day!</Text>
+          ) : (
+            <Stack direction="column" spacing={0}>
+              {taskQuery.data?.map((item) => (
+                <TodoItem key={item.id} {...item} />
+              ))}
+            </Stack>
+          )}
+        </Box>
+      </Box>
+    </Center>
   );
 };

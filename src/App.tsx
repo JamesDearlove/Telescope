@@ -15,7 +15,11 @@ function App() {
 
   return (
     <Box h="100vh" background={imageStyle} backgroundSize="cover">
-      <Grid h="100%" templateRows="180px minmax(min-content, 1fr) 250px">
+      <Grid
+        h="100%"
+        templateRows="180px minmax(min-content, 1fr) 250px"
+        alignItems="center"
+      >
         <Search />
         <TodoItems />
         <Bookmarks />
