@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -20,6 +20,7 @@ import {
   TodoistProject,
   closeTask,
 } from "../services/todoist";
+import { todoistApiKey } from "../settingNames";
 
 const TodoItem = (item: TodoistItem) => {
   const queryClient = useQueryClient();
@@ -83,41 +84,50 @@ export const TodoItems = () => {
   const background = useColorModeValue("gray.100", "gray.700");
   const border = useColorModeValue("gray.200", "gray.800");
 
+  const [todoistEnabled, setTodoistEnabled] = useState(false);
+
+  useEffect(() => {
+    const key = localStorage.getItem(todoistApiKey);
+    setTodoistEnabled(key !== null && key !== "");
+  }, []);
+
   return (
     <Center>
-      <Box
-        bg={background}
-        w={96}
-        h={96}
-        borderColor={border}
-        borderWidth="1px"
-        borderRadius="md"
-      >
-        <Flex>
-          <Text paddingTop={4} paddingLeft={4} marginBottom={2} fontSize="xl">
-            Today's Tasks
-          </Text>
-          <Spacer />
-          {(taskQuery.isFetching || projectQuery.isFetching) && (
-            <Center paddingRight={4}>
-              <Spinner />
-            </Center>
-          )}
-        </Flex>
-        <Box>
-          {taskQuery.isLoading || projectQuery.isLoading ? (
-            <></>
-          ) : taskQuery.data?.length === 0 ? (
-            <Text padding={4}>You're done for the day!</Text>
-          ) : (
-            <Stack direction="column" spacing={0}>
-              {taskQuery.data?.map((item) => (
-                <TodoItem key={item.id} {...item} />
-              ))}
-            </Stack>
-          )}
+      {todoistEnabled && (
+        <Box
+          bg={background}
+          w={96}
+          h={96}
+          borderColor={border}
+          borderWidth="1px"
+          borderRadius="md"
+        >
+          <Flex>
+            <Text paddingTop={4} paddingLeft={4} marginBottom={2} fontSize="xl">
+              Today's Tasks
+            </Text>
+            <Spacer />
+            {(taskQuery.isFetching || projectQuery.isFetching) && (
+              <Center paddingRight={4}>
+                <Spinner />
+              </Center>
+            )}
+          </Flex>
+          <Box>
+            {taskQuery.isLoading || projectQuery.isLoading ? (
+              <></>
+            ) : taskQuery.data?.length === 0 ? (
+              <Text padding={4}>You're done for the day!</Text>
+            ) : (
+              <Stack direction="column" spacing={0}>
+                {taskQuery.data?.map((item) => (
+                  <TodoItem key={item.id} {...item} />
+                ))}
+              </Stack>
+            )}
+          </Box>
         </Box>
-      </Box>
+      )}
     </Center>
   );
 };

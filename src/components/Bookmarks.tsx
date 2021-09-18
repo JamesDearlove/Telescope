@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Center,
@@ -7,6 +7,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { bookmarkItems } from "../settingNames";
 
 interface ItemProps {
   name: string;
@@ -21,7 +22,7 @@ const BookmarkItem = (props: ItemProps) => {
   };
 
   const background = useColorModeValue("gray.100", "gray.700");
-  const hoverBackground = useColorModeValue("gray.200", "gray.600")
+  const hoverBackground = useColorModeValue("gray.200", "gray.600");
   const border = useColorModeValue("gray.200", "gray.800");
 
   return (
@@ -48,22 +49,26 @@ const BookmarkItem = (props: ItemProps) => {
   );
 };
 
+export interface Bookmark {
+  name: string;
+  url: string;
+}
+
 export const Bookmarks = () => {
-  const items = [
-    { name: "Twitter", url: "https://twitter.com" },
-    { name: "Reddit", url: "https://reddit.com" },
-    { name: "YouTube", url: "https://youtube.com" },
-    { name: "ABC News", url: "https://abc.net.au/news" },
-    { name: "Learn.UQ", url: "https://learn.uq.edu.au" },
-    { name: "OzBargain", url: "https://ozbargain.com.au" },
-    { name: "Netflix", url: "https://netflix.com" },
-    { name: "Disney+", url: "https://disneyplus.com" },
-  ];
+  const [items, setItems] = useState<Bookmark[]>();
+
+  useEffect(() => {
+    const setting = localStorage.getItem(bookmarkItems);
+    if (setting && setting !== "") {
+      const bookmarks = JSON.parse(setting || "");
+      setItems(bookmarks);
+    }
+  }, []);
 
   return (
     <Center>
       <Stack direction={["column", "row"]} spacing={4} wrap="wrap">
-        {items.map((item) => (
+        {items?.map((item) => (
           <BookmarkItem key={item.name} {...item} />
         ))}
       </Stack>
