@@ -7,7 +7,6 @@ import {
   InputGroup,
   InputRightElement,
   Portal,
-  Stack,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -77,6 +76,7 @@ export const Search = () => {
     <Box>
       <Center>
         <Box w="full" maxW="4xl">
+          <form onSubmit={onSubmit}>
           <InputGroup size="lg">
             <Input
               type="text"
@@ -92,6 +92,7 @@ export const Search = () => {
               </Button>
             </InputRightElement>
           </InputGroup>
+          </form>
         </Box>
       </Center>
       {autoComplete !== "" && (
