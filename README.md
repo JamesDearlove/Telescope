@@ -1,6 +1,6 @@
 # Telescope
 
-A new tab focused on all the information you need right now.
+A new tab page focused on all the information you need right now.
 
 Check it out at <https://telescope.jimmyd.dev>.
 

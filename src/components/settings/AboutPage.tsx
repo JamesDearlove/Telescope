@@ -1,42 +1,31 @@
 import React from "react";
+import { Button, Link, Stack, Text } from "@chakra-ui/react";
 
 export const AboutPage = () => {
+
+  const onClickNavigate = (site: string) => {
+    window.location.href = site;
+  };
+
   return (
     <>
-      <h1 className="text-2xl">Telescope</h1>
-      <div className="mt-2">
-        <h3>Written by James Dearlove</h3>
-        <p>A new tab focused on all the information you need right now.</p>
-      </div>
+      <Text fontSize="3xl">Telescope</Text>
+      <Text>Written by James Dearlove</Text>
+      <Text>A new tab page focused on all the information you need right now.</Text>
 
-      <div className="mt-8">
-        <p>
-          Telescope is licensed under the{" "}
-          <a
-            href="https://raw.githubusercontent.com/JamesDearlove/Telescope/main/LICENSE"
-          >
-            MIT License
-          </a>
-          .
-        </p>
-        <a
-          href="https://github.com/JamesDearlove/Telescope"
-        >
-          GitHub
-        </a>
-        {" - "}
-        <a
-          href="https://twitter.com/ItsJimmyD"
-        >
-          Twitter
-        </a>
-        {" - "}
-        <a
-          href="https://jimmyd.dev"
-        >
-          My Other Projects
-        </a>
-      </div>
+      <Text marginTop={4}>
+        Telescope is licensed under the{" "}
+        <Link href="https://raw.githubusercontent.com/JamesDearlove/Telescope/main/LICENSE">
+          MIT License
+        </Link>
+        .
+      </Text>
+      <Stack marginTop={4} direction="row" spacing={2}>
+
+      <Button size="sm" onClick={() => onClickNavigate("https://github.com/JamesDearlove/Telescope")}>GitHub</Button>
+      <Button size="sm" onClick={() => onClickNavigate("https://twitter.com/ItsJimmyD")}>Twitter</Button>
+      <Button size="sm" onClick={() => onClickNavigate("https://jimmyd.dev")}>My Other Projects</Button>
+      </Stack>
     </>
   );
 };

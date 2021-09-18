@@ -72,7 +72,7 @@ const OldSettings = () => {
         value={textColour}
         onChange={textColourOnChange}
       />
-      <Button addClasses="p-2 w-32 mt-2" onClick={settingsSaveOnClick}>
+      <Button onClick={settingsSaveOnClick}>
         Save
       </Button>
     </div>
