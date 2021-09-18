@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { base, combineStyles, rounded, selected } from "../../styles";
 import { GeneralPage } from "./GeneralPage";
 import { BookmarksPage } from "./BookmarksPage";
 import { TodoistPage } from "./TodoistPage";
@@ -36,16 +35,7 @@ export const Sidebar = (props: SidebarProps) => {
   return (
     <ul>
       {pages.map((page, index) => (
-        <li
-          className={combineStyles([
-            rounded,
-            classes,
-            index === props.selectedPage ? selected : "",
-          ])}
-          onClick={() => props.setSelectedPage(index)}
-        >
-          {page.name}
-        </li>
+        <li onClick={() => props.setSelectedPage(index)}>{page.name}</li>
       ))}
     </ul>
   );
@@ -71,12 +61,7 @@ export const Dialog = (props: DialogProps) => {
         <ModalCloseButton />
         <ModalBody>
           <div className={backgroundClasses}>
-            <div
-              className={combineStyles([
-                base,
-                "w-160 h-128 relative grid grid-cols-4",
-              ])}
-            >
+            <div>
               <div className="p-2 col-span-1 border-r dark:border-black">
                 <Sidebar
                   selectedPage={selectedPage}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Textbox } from "../common/Textbox";
-import { FormButton } from "../common/FormButton";
+import { Button, Input } from "@chakra-ui/react";
 
 const OldSettings = () => {
   const [todoistKey, setTodoistKey] = useState("");
@@ -48,34 +47,34 @@ const OldSettings = () => {
   return (
     <div className="flex flex-col">
       <h1 className="mb-2">Todoist</h1>
-      <Textbox
+      <Input
         type="text"
         placeholder="Todoist API Key"
         value={todoistKey}
         onChange={todoistKeyOnChange}
       />
-      <Textbox
+      <Input
         type="text"
         placeholder="Todoist Task Filter"
         value={todoistFilter}
         onChange={todoistFilterOnChange}
       />
       <h1 className="my-2">Style</h1>
-      <Textbox
+      <Input
         type="text"
         placeholder="Background Image"
         value={backgroundImg}
         onChange={backgroundImgOnChange}
       />
-      <Textbox
+      <Input
         type="text"
         placeholder="Text Colour Override"
         value={textColour}
         onChange={textColourOnChange}
       />
-      <FormButton addClasses="p-2 w-32 mt-2" onClick={settingsSaveOnClick}>
+      <Button addClasses="p-2 w-32 mt-2" onClick={settingsSaveOnClick}>
         Save
-      </FormButton>
+      </Button>
     </div>
   );
 };

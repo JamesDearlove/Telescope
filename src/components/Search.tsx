@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { background, base, combineStyles, hover } from "../styles";
+import {
+  Box,
+  Button,
+  Center,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Portal,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 
 const isURL = (str: string) => {
   // const expression = /([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/gm
@@ -61,49 +71,44 @@ export const Search = () => {
   };
 
   return (
-    <>
-      <div
-        className={combineStyles([
-          base,
-          "w-10/12 md:w-8/12 max-w-screen-md mt-24 mx-auto",
-        ])}
-      >
-        <form onSubmit={onSubmit}>
-          <div className="flex">
-            <input
-              className={combineStyles([
-                background,
-                "p-4 flex-grow rounded-l-lg focus:outline-none",
-              ])}
+    <Box>
+      <Center>
+        <Box w="full" maxW="4xl">
+          <InputGroup size="lg">
+            <Input
               type="text"
               placeholder="What's next?"
               autoFocus
               value={value}
               onChange={onTextChange}
             />
-            <button
-              className={combineStyles([
-                background,
-                hover,
-                "p-4 rounded-r-lg focus:outline-none",
-              ])}
-              type="submit"
-            >
-              Go
-            </button>
-          </div>
-        </form>
-      </div>
+            <InputRightElement>
+              <Button h="full" type="submit">
+                Go
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+        </Box>
+      </Center>
       {autoComplete !== "" && (
-        <div
-          className={combineStyles([
-            base,
-            "w-10/12 md:w-8/12 max-w-screen-md mt-2 mx-auto px-4 py-2 z-10 relative overflow-hidden",
-          ])}
-        >
-          <span>{autoComplete}</span>
-        </div>
+        <Portal>
+          <Center>
+            <Box
+              position="absolute"
+              borderWidth="1px"
+              borderRadius="lg"
+              zIndex="overlay"
+              top={32}
+              px={4}
+              py={2}
+              w="full"
+              maxW="4xl"
+            >
+              <Text>{autoComplete}</Text>
+            </Box>
+          </Center>
+        </Portal>
       )}
-    </>
+    </Box>
   );
 };
