@@ -53,7 +53,7 @@ export const Dialog = (props: DialogProps) => {
 
             <TabPanels>
               {pages.map((page) => (
-                <TabPanel key={page.name}>{page.component}</TabPanel>
+                <TabPanel paddingX={0} key={page.name}>{page.component}</TabPanel>
               ))}
             </TabPanels>
           </Tabs>

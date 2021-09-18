@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Input } from "@chakra-ui/react";
+import { Box, Button, Divider, Input, Text, useColorMode } from "@chakra-ui/react";
 
 const OldSettings = () => {
   const [todoistKey, setTodoistKey] = useState("");
@@ -72,17 +72,24 @@ const OldSettings = () => {
         value={textColour}
         onChange={textColourOnChange}
       />
-      <Button onClick={settingsSaveOnClick}>
-        Save
-      </Button>
+      <Button onClick={settingsSaveOnClick}>Save</Button>
     </div>
   );
 };
 
 export const GeneralPage = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <>
-      <OldSettings />
+      <Button onClick={toggleColorMode}>
+        Toggle {colorMode === "light" ? "Dark" : "Light"}
+      </Button>
+      <Divider marginY={4}/>
+      <Box>
+        <Text fontSize="xl">Old Settings Panel</Text>
+        <OldSettings />
+      </Box>
     </>
   );
 };

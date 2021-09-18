@@ -9,6 +9,7 @@ import {
   Portal,
   Stack,
   Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 const isURL = (str: string) => {
@@ -22,6 +23,8 @@ const isURL = (str: string) => {
 export const Search = () => {
   const [value, setValue] = useState("");
   const [autoComplete, setAutoComplete] = useState("");
+
+  const background = useColorModeValue("gray.100", "gray.700");
 
   const onTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -81,9 +84,10 @@ export const Search = () => {
               autoFocus
               value={value}
               onChange={onTextChange}
+              bg={background}
             />
             <InputRightElement>
-              <Button h="full" type="submit">
+              <Button h="full" type="submit" bg="transparent" borderLeftRadius={0}>
                 Go
               </Button>
             </InputRightElement>
@@ -103,6 +107,7 @@ export const Search = () => {
               py={2}
               w="full"
               maxW="4xl"
+              bg={background}
             >
               <Text>{autoComplete}</Text>
             </Box>

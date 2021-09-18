@@ -1,5 +1,12 @@
 import React from "react";
-import { Button, Center, Image, Stack, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Center,
+  Image,
+  Stack,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
 interface ItemProps {
   name: string;
@@ -13,8 +20,19 @@ const BookmarkItem = (props: ItemProps) => {
     window.location.href = url.toString();
   };
 
+  const background = useColorModeValue("gray.100", "gray.700");
+  const hoverBackground = useColorModeValue("gray.200", "gray.600")
+
   return (
-    <Button onClick={buttonClick} w={24} h={20}>
+    <Button
+      bg={background}
+      onClick={buttonClick}
+      w={24}
+      h={20}
+      _hover={{
+        background: hoverBackground,
+      }}
+    >
       <Stack direction="column" alignItems="center">
         <Image
           boxSize={4}
