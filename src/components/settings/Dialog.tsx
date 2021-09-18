@@ -38,12 +38,17 @@ export const Dialog = (props: DialogProps) => {
   const onClose = () => props.setOpen(false);
 
   return (
-    <Modal size="xl" closeOnOverlayClick={false} isOpen={props.open} onClose={onClose}>
+    <Modal
+      size="xl"
+      closeOnOverlayClick={false}
+      isOpen={props.open}
+      onClose={onClose}
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Settings</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
+        <ModalBody paddingTop={0}>
           <Tabs>
             <TabList>
               {pages.map((page) => (
@@ -53,7 +58,9 @@ export const Dialog = (props: DialogProps) => {
 
             <TabPanels>
               {pages.map((page) => (
-                <TabPanel paddingX={0} key={page.name}>{page.component}</TabPanel>
+                <TabPanel paddingX={0} key={page.name}>
+                  {page.component}
+                </TabPanel>
               ))}
             </TabPanels>
           </Tabs>

@@ -77,21 +77,26 @@ export const Search = () => {
       <Center>
         <Box w="full" maxW="4xl">
           <form onSubmit={onSubmit}>
-          <InputGroup size="lg">
-            <Input
-              type="text"
-              placeholder="What's next?"
-              autoFocus
-              value={value}
-              onChange={onTextChange}
-              bg={background}
-            />
-            <InputRightElement>
-              <Button h="full" type="submit" bg="transparent" borderLeftRadius={0}>
-                Go
-              </Button>
-            </InputRightElement>
-          </InputGroup>
+            <InputGroup size="lg">
+              <Input
+                type="text"
+                placeholder="What's next?"
+                autoFocus
+                value={value}
+                onChange={onTextChange}
+                bg={background}
+              />
+              <InputRightElement>
+                <Button
+                  h="full"
+                  type="submit"
+                  bg="transparent"
+                  borderLeftRadius={0}
+                >
+                  Go
+                </Button>
+              </InputRightElement>
+            </InputGroup>
           </form>
         </Box>
       </Center>

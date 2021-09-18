@@ -19,7 +19,7 @@ import {
   getProjects,
   TodoistProject,
   closeTask,
-} from "../todoist";
+} from "../services/todoist";
 
 const TodoItem = (item: TodoistItem) => {
   const queryClient = useQueryClient();
@@ -81,7 +81,7 @@ export const TodoItems = () => {
   const projectQuery = useQuery("projects", getProjects);
 
   const background = useColorModeValue("gray.100", "gray.700");
-  
+
   return (
     <Center>
       <Box bg={background} w={96} h={96} borderWidth="1px" borderRadius="md">
