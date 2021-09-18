@@ -22,10 +22,13 @@ const BookmarkItem = (props: ItemProps) => {
 
   const background = useColorModeValue("gray.100", "gray.700");
   const hoverBackground = useColorModeValue("gray.200", "gray.600")
+  const border = useColorModeValue("gray.200", "gray.800");
 
   return (
     <Button
       bg={background}
+      borderColor={border}
+      borderWidth={1}
       onClick={buttonClick}
       w={24}
       h={20}

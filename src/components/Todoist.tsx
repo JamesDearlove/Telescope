@@ -81,10 +81,18 @@ export const TodoItems = () => {
   const projectQuery = useQuery("projects", getProjects);
 
   const background = useColorModeValue("gray.100", "gray.700");
+  const border = useColorModeValue("gray.200", "gray.800");
 
   return (
     <Center>
-      <Box bg={background} w={96} h={96} borderWidth="1px" borderRadius="md">
+      <Box
+        bg={background}
+        w={96}
+        h={96}
+        borderColor={border}
+        borderWidth="1px"
+        borderRadius="md"
+      >
         <Flex>
           <Text paddingTop={4} paddingLeft={4} marginBottom={2} fontSize="xl">
             Today's Tasks

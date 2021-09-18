@@ -24,6 +24,7 @@ export const Search = () => {
   const [autoComplete, setAutoComplete] = useState("");
 
   const background = useColorModeValue("gray.100", "gray.700");
+  const border = useColorModeValue("gray.200", "gray.800");
 
   const onTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -81,6 +82,7 @@ export const Search = () => {
               <Input
                 type="text"
                 placeholder="What's next?"
+                borderColor={border}
                 autoFocus
                 value={value}
                 onChange={onTextChange}
@@ -91,6 +93,7 @@ export const Search = () => {
                   h="full"
                   type="submit"
                   bg="transparent"
+                  borderColor={border}
                   borderLeftRadius={0}
                 >
                   Go
@@ -105,6 +108,7 @@ export const Search = () => {
           <Center>
             <Box
               position="absolute"
+              borderColor={border}
               borderWidth="1px"
               borderRadius="lg"
               zIndex="overlay"
