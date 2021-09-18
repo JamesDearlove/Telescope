@@ -16,7 +16,7 @@ export const TodoistPage = () => {
   const [apiKey, setApiKey] = useState<string>("");
   const [filter, setFilter] = useState<string>("");
 
-  const saveInputs = () => {
+  const storeSettings = () => {
     localStorage.setItem(todoistApiKey, apiKey);
     localStorage.setItem(todoistFilter, filter);
   };
@@ -27,7 +27,7 @@ export const TodoistPage = () => {
       localStorage.removeItem(todoistApiKey);
       localStorage.removeItem(todoistFilter);
     } else {
-      saveInputs();
+      storeSettings();
     }
   };
 
@@ -68,7 +68,7 @@ export const TodoistPage = () => {
         <Input
           value={apiKey || ""}
           onChange={onChangeKey}
-          onBlur={saveInputs}
+          onBlur={storeSettings}
         />
         <FormHelperText>
           Get your API token from your{" "}
@@ -88,7 +88,7 @@ export const TodoistPage = () => {
           value={filter || ""}
           onChange={onChangeFilter}
           placeholder="(today | overdue) &amp; !assigned to: others"
-          onBlur={saveInputs}
+          onBlur={storeSettings}
         />
         <FormHelperText>
           The default filter fetches tasks that are assigned to you and are
