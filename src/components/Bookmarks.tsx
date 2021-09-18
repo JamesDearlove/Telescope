@@ -88,7 +88,7 @@ export const Bookmarks = () => {
         });
       }
     }
-  }, []);
+  }, [toast]);
 
   return (
     <Center>
