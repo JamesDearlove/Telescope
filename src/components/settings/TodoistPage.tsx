@@ -49,7 +49,7 @@ export const TodoistPage = () => {
 
   return (
     <>
-      <Text>The Todoist integration fetches tasks from your Todoist.</Text>
+      <Text fontSize="md">The Todoist integration fetches tasks from your Todoist.</Text>
       <FormControl id="enabled" display="flex" alignItems="center" marginY="2">
         <Switch
           id="enabled-switch"

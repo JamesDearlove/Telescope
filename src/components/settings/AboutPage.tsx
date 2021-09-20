@@ -10,10 +10,10 @@ export const AboutPage = () => {
   return (
     <>
       <Text fontSize="3xl">Telescope</Text>
-      <Text>Written by James Dearlove</Text>
-      <Text>A new tab page focused on all the information you need right now.</Text>
+      <Text fontSize="md">Written by James Dearlove</Text>
+      <Text fontSize="md">A new tab page focused on all the information you need right now.</Text>
 
-      <Text marginTop={4}>
+      <Text fontSize="md" marginTop={4}>
         Telescope is licensed under the{" "}
         <Link href="https://raw.githubusercontent.com/JamesDearlove/Telescope/main/LICENSE">
           MIT License

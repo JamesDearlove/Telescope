@@ -55,11 +55,11 @@ const TodoItem = (item: TodoistItem) => {
     >
       <Flex>
         <Box>
-          <Text>{item.content}</Text>
-          <Text>{getProject(item.project_id)?.name}</Text>
+          <Text fontSize="md">{item.content}</Text>
+          <Text fontSize="md">{getProject(item.project_id)?.name}</Text>
         </Box>
         <Spacer />
-        <Text>{relativeDateTime(item.due)}</Text>
+        <Text fontSize="md">{relativeDateTime(item.due)}</Text>
       </Flex>
       {open && (
         <Flex marginTop={2}>
@@ -117,7 +117,7 @@ export const TodoItems = () => {
             {taskQuery.isLoading || projectQuery.isLoading ? (
               <></>
             ) : taskQuery.data?.length === 0 ? (
-              <Text padding={4}>You're done for the day!</Text>
+              <Text fontSize="md" padding={4}>You're done for the day!</Text>
             ) : (
               <Stack direction="column" spacing={0}>
                 {taskQuery.data?.map((item) => (

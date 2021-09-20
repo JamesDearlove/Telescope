@@ -22,7 +22,7 @@ export const BookmarksPage = () => {
 
   return (
     <>
-      <Text>
+      <Text fontSize="md">
         While I'm working on an actual interface, you can add bookmarks using
         JSON here.
       </Text>
