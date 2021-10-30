@@ -87,7 +87,7 @@ export const Bookmarks = () => {
   }, [toast]);
 
   return (
-    <Center>
+    <Center alignSelf="flex-start">
       <Stack
         direction={["column", "row"]}
         spacing={4}

@@ -10,6 +10,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { sizeProps } from "./CommandBar";
 
 const isURL = (str: string) => {
   // const expression = /([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/gm
@@ -25,16 +26,6 @@ export const Search = () => {
 
   const background = useColorModeValue("gray.100", "gray.700");
   const border = useColorModeValue("gray.200", "gray.800");
-
-  const sizeProps = {
-    w: "full",
-    maxW: {
-      base: "100%",
-      md: "2xl",
-      xl: "4xl",
-    },
-    marginX: { base: 16, sm: 32, md: 32, lg: 48 },
-  };
 
   const onTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -84,44 +75,42 @@ export const Search = () => {
   };
 
   return (
-    <Box>
-      <Center>
-        <Box {...sizeProps}>
-          <form onSubmit={onSubmit}>
-            <InputGroup size="lg">
-              <Input
-                type="text"
-                placeholder="What's next?"
+    <>
+      <Box>
+        <form onSubmit={onSubmit}>
+          <InputGroup size="lg">
+            <Input
+              type="text"
+              placeholder="What's next?"
+              borderColor={border}
+              autoFocus
+              value={value}
+              onChange={onTextChange}
+              bg={background}
+            />
+            <InputRightElement>
+              <Button
+                h="full"
+                type="submit"
+                bg="transparent"
                 borderColor={border}
-                autoFocus
-                value={value}
-                onChange={onTextChange}
-                bg={background}
-              />
-              <InputRightElement>
-                <Button
-                  h="full"
-                  type="submit"
-                  bg="transparent"
-                  borderColor={border}
-                  borderLeftRadius={0}
-                >
-                  Go
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-          </form>
-        </Box>
-      </Center>
+                borderLeftRadius={0}
+              >
+                Go
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+        </form>
+      </Box>
       {autoComplete !== "" && (
         <Portal>
-          <Box position="absolute" top={32} width="full">
+          <Box position="absolute" top={40} width="full">
             <Center>
               <Box
                 borderColor={border}
                 borderWidth="1px"
                 borderRadius="lg"
-                zIndex="overlay"
+                // zIndex="overlay"
                 px={4}
                 py={2}
                 bg={background}
@@ -133,6 +122,6 @@ export const Search = () => {
           </Box>
         </Portal>
       )}
-    </Box>
+    </>
   );
 };

@@ -1,10 +1,11 @@
 import React from "react";
 import { Bookmarks } from "./components/Bookmarks";
-import { Search } from "./components/Search";
+import { Box, Grid } from "@chakra-ui/react";
+
+import { backgroundImgUrl } from "./settingNames";
 import Settings from "./components/settings";
 import { TodoItems } from "./components/Todoist";
-import { Box, Grid } from "@chakra-ui/react";
-import { backgroundImgUrl } from "./settingNames";
+import { CommandBar } from "./components/CommandBar";
 
 function App() {
   const backgroundImg = localStorage.getItem(backgroundImgUrl);
@@ -18,12 +19,10 @@ function App() {
     <Box h="100vh" background={imageStyle} backgroundSize="cover">
       <Grid
         h="100%"
-        templateRows="180px minmax(min-content, 1fr) 250px"
+        templateRows="150px minmax(min-content, 1fr) 175px"
         alignItems="center"
       >
-        <Box alignItems="center">
-          <Search />
-        </Box>
+        <CommandBar />
         <TodoItems />
         <Bookmarks />
       </Grid>
