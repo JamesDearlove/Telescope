@@ -16,6 +16,7 @@ import {
   Tab,
   Tabs,
 } from "@chakra-ui/react";
+import { WeatherPage } from "./WeatherPage";
 
 interface Page {
   name: string;
@@ -26,6 +27,7 @@ const pages: Page[] = [
   { name: "General", component: <GeneralPage /> },
   { name: "Bookmarks", component: <BookmarksPage /> },
   { name: "Todoist", component: <TodoistPage /> },
+  { name: "Weather", component: <WeatherPage /> },
   { name: "About", component: <AboutPage /> },
 ];
 

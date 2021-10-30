@@ -15,9 +15,11 @@ import {
   getLocationInfo,
 } from "./data";
 import { weatherIcon } from "./Icons";
+import { bomGeohash } from "../../settingNames";
 
-export const Weather = () => {
-  const location = "r7hgdp";
+const WeatherComponent = (props: { location: string }) => {
+  const location = props.location;
+
   const locationQuery = useQuery("weatherLocation", () =>
     getLocationInfo(location)
   );
@@ -37,7 +39,9 @@ export const Weather = () => {
     forecastQuery.data?.data[0]?.icon_descriptor.toString();
   const icon = weatherIcon[iconDescriptor];
 
-  return (
+  return forecastQuery.isLoading ? (
+    <></>
+  ) : (
     <Box>
       <Flex alignItems="center" justifyContent="flex-end">
         <Icon
@@ -79,4 +83,10 @@ export const Weather = () => {
       )}
     </Box>
   );
+};
+
+export const Weather = () => {
+  const location = localStorage.getItem(bomGeohash) || "";
+
+  return location === "" ? <></> : <WeatherComponent location={location} />;
 };
