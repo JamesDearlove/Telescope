@@ -26,6 +26,16 @@ export const Search = () => {
   const background = useColorModeValue("gray.100", "gray.700");
   const border = useColorModeValue("gray.200", "gray.800");
 
+  const sizeProps = {
+    w: "full",
+    maxW: {
+      base: "100%",
+      md: "2xl",
+      xl: "4xl",
+    },
+    marginX: { base: 16, sm: 32, md: 32, lg: 48 },
+  };
+
   const onTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     generateOptions(event.target.value.toString());
@@ -76,7 +86,7 @@ export const Search = () => {
   return (
     <Box>
       <Center>
-        <Box w="full" maxW="4xl">
+        <Box {...sizeProps}>
           <form onSubmit={onSubmit}>
             <InputGroup size="lg">
               <Input
@@ -105,23 +115,22 @@ export const Search = () => {
       </Center>
       {autoComplete !== "" && (
         <Portal>
-          <Center>
-            <Box
-              position="absolute"
-              borderColor={border}
-              borderWidth="1px"
-              borderRadius="lg"
-              zIndex="overlay"
-              top={32}
-              px={4}
-              py={2}
-              w="full"
-              maxW="4xl"
-              bg={background}
-            >
-              <Text>{autoComplete}</Text>
-            </Box>
-          </Center>
+          <Box position="absolute" top={32} width="full">
+            <Center>
+              <Box
+                borderColor={border}
+                borderWidth="1px"
+                borderRadius="lg"
+                zIndex="overlay"
+                px={4}
+                py={2}
+                bg={background}
+                {...sizeProps}
+              >
+                <Text fontSize="md">{autoComplete}</Text>
+              </Box>
+            </Center>
+          </Box>
         </Portal>
       )}
     </Box>

@@ -41,7 +41,7 @@ const BookmarkItem = (props: Bookmark) => {
     window.location.href = url.toString();
   };
 
-  const icon = props.icon || `http://icons.duckduckgo.com/ip2/${url.host}.ico`
+  const icon = props.icon || `http://icons.duckduckgo.com/ip2/${url.host}.ico`;
 
   return (
     <Button
@@ -56,16 +56,12 @@ const BookmarkItem = (props: Bookmark) => {
       }}
     >
       <Stack direction="column" alignItems="center">
-        <Image
-          boxSize={4}
-          src={icon}
-        />
+        <Image boxSize={4} src={icon} />
         <Text fontSize="sm">{props.name}</Text>
       </Stack>
     </Button>
   );
 };
-
 
 export const Bookmarks = () => {
   const [items, setItems] = useState<Bookmark[]>();
@@ -92,7 +88,13 @@ export const Bookmarks = () => {
 
   return (
     <Center>
-      <Stack direction={["column", "row"]} spacing={4} wrap="wrap">
+      <Stack
+        direction={["column", "row"]}
+        spacing={4}
+        justifySelf="center"
+        wrap="wrap"
+        marginX={{ base: 8, sm: 16, lg: 32 }}
+      >
         {items?.map((item) => (
           <BookmarkItem key={item.name} {...item} />
         ))}

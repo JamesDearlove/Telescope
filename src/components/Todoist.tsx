@@ -55,7 +55,9 @@ const TodoItem = (item: TodoistItem) => {
     >
       <Flex>
         <Box>
-          <Text fontSize="md">{item.content}</Text>
+          <Text fontSize="md" paddingRight={1}>
+            {item.content}
+          </Text>
           <Text fontSize="md">{getProject(item.project_id)?.name}</Text>
         </Box>
         <Spacer />
@@ -82,7 +84,7 @@ export const TodoItems = () => {
   const projectQuery = useQuery("projects", getProjects);
 
   const background = useColorModeValue("gray.100", "gray.700");
-  const border = useColorModeValue("gray.200", "gray.800");
+  const border = useColorModeValue("gray.300", "gray.800");
 
   const [todoistEnabled, setTodoistEnabled] = useState(false);
 
@@ -101,6 +103,20 @@ export const TodoItems = () => {
           borderColor={border}
           borderWidth="1px"
           borderRadius="md"
+          overflow="auto"
+          sx={{
+            "&::-webkit-scrollbar": {
+              width: 4,
+            },
+            "&::-webkit-scrollbar-thumb": {
+              borderColor: "transparent",
+              borderRadius: 8,
+              borderWidth: 4,
+              borderStyle: "solid",
+              backgroundClip: "content-box",
+              backgroundColor: border,
+            },
+          }}
         >
           <Flex>
             <Text paddingTop={4} paddingLeft={4} marginBottom={2} fontSize="xl">
@@ -117,7 +133,9 @@ export const TodoItems = () => {
             {taskQuery.isLoading || projectQuery.isLoading ? (
               <></>
             ) : taskQuery.data?.length === 0 ? (
-              <Text fontSize="md" padding={4}>You're done for the day!</Text>
+              <Text fontSize="md" padding={4}>
+                You're done for the day!
+              </Text>
             ) : (
               <Stack direction="column" spacing={0}>
                 {taskQuery.data?.map((item) => (

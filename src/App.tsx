@@ -21,7 +21,9 @@ function App() {
         templateRows="180px minmax(min-content, 1fr) 250px"
         alignItems="center"
       >
-        <Search />
+        <Box alignItems="center">
+          <Search />
+        </Box>
         <TodoItems />
         <Bookmarks />
       </Grid>
