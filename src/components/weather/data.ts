@@ -15,7 +15,6 @@ const getData = async (endpoint: string, params?: any) => {
     params: params,
   });
 
-  console.log(response.data)
   if (response.status === 200) {
     return await response.data;
   } else {
