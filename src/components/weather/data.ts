@@ -2,7 +2,7 @@
  * BOM Weather component, data layer.
  *
  * This taps into api.weather.bom.gov.au to grab weather information.
- * I wanted to use the BOM API directly because it's pretty accurate and my 
+ * I wanted to use the BOM API directly because it's pretty accurate and my
  * main source for weather.
  */
 import axios from "axios";
@@ -23,25 +23,31 @@ const getData = async (endpoint: string, params?: any) => {
 };
 
 export const searchLocations = (searchTerm: string) => {
-  return getData("locations", { search: searchTerm })
+  if (searchTerm.length < 3) {
+    return undefined;
+  }
+  return getData("locations", { search: searchTerm });
 };
 
 export const getLocationInfo = (location: string) => {
-  return getData(`locations/${location}`)
-}
+  if (location === "") {
+    return undefined;
+  }
+  return getData(`locations/${location}`);
+};
 
 export const getThreeHourlyForecast = (location: string) => {
-  return getData(`locations/${location}/forecasts/3-hourly`)
+  return getData(`locations/${location.slice(0,6)}/forecasts/3-hourly`);
 };
 
 export const getHourlyForecast = (location: string) => {
-  return getData(`locations/${location}/forecasts/hourly`)
+  return getData(`locations/${location.slice(0,6)}/forecasts/hourly`);
 };
 
 export const getDailyForecast = (location: string) => {
-  return getData(`locations/${location}/forecasts/daily`)
-}
+  return getData(`locations/${location.slice(0,6)}/forecasts/daily`);
+};
 
 export const getCurrentObservation = (location: string) => {
-  return getData(`locations/${location}/observations`)
+  return getData(`locations/${location.slice(0,6)}/observations`);
 };

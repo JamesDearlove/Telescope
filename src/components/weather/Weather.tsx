@@ -74,7 +74,7 @@ const WeatherComponent = (props: { location: string }) => {
             paddingX={4}
             paddingY={2}
           >
-            <Text>{locationQuery.data?.data?.name}</Text>
+            <Text>{locationQuery.data?.data?.name}, {locationQuery.data?.data?.state}</Text>
             <Text>
               Feels Like: {observationQuery.data?.data?.temp_feels_like}&#8451;
             </Text>

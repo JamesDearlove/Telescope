@@ -1,42 +1,147 @@
 import React, { useEffect, useState } from "react";
 import {
+  Box,
   Divider,
   FormControl,
   FormHelperText,
   FormLabel,
   Input,
-  Link,
   Switch,
   Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { bomGeohash } from "../../settingNames";
+import { getLocationInfo, searchLocations } from "../weather/data";
+import { useQuery } from "react-query";
+import { useCombobox } from "downshift";
+
+interface DropdownComboboxProps {
+  isDisabled: boolean;
+  formLabel?: string;
+  formHelpText?: string;
+  selectedItem: any;
+  setSelectedItem: React.Dispatch<any>;
+  defaultText: string;
+}
+
+const DropdownCombobox = (props: DropdownComboboxProps) => {
+  const [searchTerm, setSearchTerm] = useState<string | undefined>();
+
+  const searchQuery = useQuery(["weatherLocationSearch", searchTerm], () =>
+    searchLocations(searchTerm || "")
+  );
+
+  const {
+    isOpen,
+    getLabelProps,
+    getMenuProps,
+    getInputProps,
+    getComboboxProps,
+    highlightedIndex,
+    getItemProps,
+    openMenu,
+    closeMenu,
+    setInputValue,
+  } = useCombobox({
+    items: searchQuery.data?.data || [],
+    onInputValueChange: ({ inputValue }) => {
+      setSearchTerm(inputValue || "");
+    },
+    onSelectedItemChange: ({ selectedItem }) => {
+      onSelectedItem(selectedItem);
+    },
+  });
+
+  useEffect(() => {
+    setInputValue(props.defaultText);
+  }, [props.defaultText, setInputValue]);
+
+  const onSelectedItem = (selectedItem: any) => {
+    props.setSelectedItem(selectedItem);
+    setInputValue(`${selectedItem?.name}, ${selectedItem?.state}`);
+    closeMenu();
+  };
+
+  const border = useColorModeValue("gray.200", "gray.600");
+  const hover = useColorModeValue("gray.200", "gray.600");
+
+  return (
+    <FormControl>
+      {props.formLabel && (
+        <FormLabel {...getLabelProps()}>{props.formLabel}</FormLabel>
+      )}
+      <div {...getComboboxProps()}>
+        <Input
+          isDisabled={props.isDisabled}
+          onFocus={openMenu}
+          {...getInputProps()}
+        />
+      </div>
+
+      <Box {...getMenuProps()}>
+        {isOpen && searchQuery.data?.data?.length > 0 && (
+          <Box
+            marginTop={1}
+            borderColor={border}
+            borderWidth={1}
+            borderRadius={8}
+            // TODO: Fix up the z-index issue.
+          >
+            {searchQuery.data?.data
+              ?.slice(0, 5)
+              .map((item: any, index: number) => (
+                <Text
+                  backgroundColor={highlightedIndex === index ? hover : ""}
+                  paddingX={4}
+                  paddingY={1}
+                  borderRadius={4}
+                  key={`${item}${index}`}
+                  {...getItemProps({ item: item.name, index })}
+                >
+                  {item.name}, {item.state} {item.postcode}
+                </Text>
+              ))}
+          </Box>
+        )}
+      </Box>
+
+      {props.formHelpText && (
+        <FormHelperText>{props.formHelpText}</FormHelperText>
+      )}
+    </FormControl>
+  );
+};
 
 export const WeatherPage = () => {
   const [enabled, setEnabled] = useState(false);
-  const [geoHash, setGeohash] = useState<string>("");
-
-  const storeSettings = () => {
-    localStorage.setItem(bomGeohash, geoHash);
-  };
+  const [selectedLocation, setSelectedLocation] = useState<any>();
+  const [storedLocation, setStoredLocation] = useState("");
 
   const onChangeEnabled = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnabled(event.target.checked);
     if (!event.target.checked) {
       localStorage.removeItem(bomGeohash);
-    } else {
-      storeSettings();
     }
   };
 
-  const onChangeGeohash = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setGeohash(event.target.value);
+  const onLocationSelected = (selected: any) => {
+    setSelectedLocation(selected);
+    localStorage.setItem(bomGeohash, selected?.geohash);
   };
 
   useEffect(() => {
-    const geohash = localStorage.getItem(bomGeohash);
+    const loadData = async () => {
+      const geohash = localStorage.getItem(bomGeohash);
 
-    setGeohash(geohash || "");
-    setEnabled(geohash !== null);
+      if (geohash) {
+        const res = await getLocationInfo(geohash || "");
+        setStoredLocation(`${res.data?.name}, ${res.data?.state}`);
+      }
+
+      setEnabled(geohash !== null);
+    };
+
+    loadData();
   }, []);
 
   return (
@@ -58,26 +163,14 @@ export const WeatherPage = () => {
       </FormControl>
       <Divider marginBottom="2" />
 
-      <FormControl id="api-key" isDisabled={!enabled}>
-        <FormLabel>BoM Geohash</FormLabel>
-        <Input
-          value={geoHash || ""}
-          onChange={onChangeGeohash}
-          onBlur={storeSettings}
-          maxLength={6}
-        />
-        <FormHelperText>
-          Temporary, requires your 6 character geohash from{" "}
-          <Link
-            href="https://weather.bom.gov.au"
-            color="blue.300"
-            target="_blank"
-          >
-            weather.bom.gov.au
-          </Link>
-          . If your geohash is longer than 6 characters, you can remove any additional characters.
-        </FormHelperText>
-      </FormControl>
+      <DropdownCombobox
+        isDisabled={!enabled}
+        formLabel="Location"
+        // formHelpText="Search for a location from the BoM's available locations."
+        selectedItem={selectedLocation}
+        setSelectedItem={onLocationSelected}
+        defaultText={storedLocation}
+      />
     </>
   );
 };
