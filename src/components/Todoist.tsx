@@ -61,7 +61,7 @@ const TodoItem = (item: TodoistItem) => {
           <Text fontSize="md">{getProject(item.project_id)?.name}</Text>
         </Box>
         <Spacer />
-        <Text fontSize="md">{relativeDateTime(item.due)}</Text>
+        {item.due && <Text fontSize="md">{relativeDateTime(item.due)}</Text>}
       </Flex>
       {open && (
         <Flex marginTop={2}>
