@@ -9,9 +9,13 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { backgroundImgUrl } from "../../settingNames";
+import { storeBackgroundImg, useSetting } from "../../state/Settings";
 
 export const BackgroundSection = () => {
-  const [backgroundURL, setBackgroundURL] = useState<string>("");
+  // const [backgroundURL, setBackgroundURL] = useState<string>("");
+
+  const { state, dispatch } = useSetting()
+  const backgroundURL = state.backgroundImage
 
   const storeSettings = () => {
     localStorage.setItem(backgroundImgUrl, backgroundURL);
@@ -20,12 +24,8 @@ export const BackgroundSection = () => {
   const onChangeBackgroundURL = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setBackgroundURL(event.target.value);
+    dispatch(storeBackgroundImg(event.target.value))
   };
-
-  useEffect(() => {
-    setBackgroundURL(localStorage.getItem(backgroundImgUrl) || "");
-  }, []);
 
   return (
     <>
