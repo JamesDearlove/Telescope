@@ -16,7 +16,7 @@ export const BackgroundSection = () => {
   const { state, dispatch } = useSetting();
 
   useEffect(() => {
-    setBackgroundURL(state.backgroundImage);
+    setBackgroundURL(state.backgroundImage ?? "");
   }, [state.backgroundImage]);
 
   const storeSettings = () => {

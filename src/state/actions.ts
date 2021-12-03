@@ -35,7 +35,7 @@ export const storeBackgroundImg = (url: string): Action => ({
   },
 });
 
-export const reducer = (state: State, action: Action) => {
+export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case ActionTypes.LOAD_SETTINGS:
       return {
