@@ -33,6 +33,10 @@ export const storeBackgroundImg = (url: string): Action => ({
   },
 });
 
+/**
+ * Stores bookmarks in LocalStorage.
+ * @param bookmarks An array of Bookmarks to store.
+ */
 export const storeBookmarks = (bookmarks: Bookmark[]): Action => ({
   type: ActionTypes.SAVE_BOOKMARKS,
   payload: {
@@ -40,6 +44,10 @@ export const storeBookmarks = (bookmarks: Bookmark[]): Action => ({
   },
 });
 
+/**
+ * Stores the Todoist setting state in LocalStorage.
+ * @param values The TodoistState you want to store.
+ */
 export const storeTodoist = (values: TodoistState): Action => ({
   type: ActionTypes.SAVE_TODOIST,
   payload: {
@@ -47,6 +55,10 @@ export const storeTodoist = (values: TodoistState): Action => ({
   },
 });
 
+/**
+ * Stores a Bom Geohash in LocalStorage.
+ * @param value The geohash to store. Null to remove.
+ */
 export const storeBomGeohash = (value: string | null): Action => ({
   type: ActionTypes.SAVE_BOMGEOHASH,
   payload: {
@@ -54,6 +66,9 @@ export const storeBomGeohash = (value: string | null): Action => ({
   },
 });
 
+/**
+ * Removes Todoist information from LocalStorage.
+ */
 export const clearTodoist = (): Action => ({
   type: ActionTypes.CLEAR_TODOIST,
 });
@@ -108,7 +123,7 @@ export const reducer = (state: State, action: Action): State => {
         localStorage.setItem(localStorageKeys.bomGeohash, action.payload.value);
       }
       return { ...state, bomGeohash: action.payload.value };
-      
+
     default:
       throw new Error("Invalid state action.");
   }

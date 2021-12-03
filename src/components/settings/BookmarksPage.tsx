@@ -20,11 +20,11 @@ export const BookmarksPage = () => {
   const { state, dispatch } = useSettings();
 
   useEffect(() => {
-    setItems(state.bookmarks)
+    setItems(state.bookmarks);
   }, [state.bookmarks]);
 
   const saveBookmarks = () => {
-    dispatch(storeBookmarks(items))
+    dispatch(storeBookmarks(items));
     setUpdateStore(false);
   };
 

@@ -117,7 +117,7 @@ export const WeatherPage = () => {
   const [enabled, setEnabled] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState<any>();
   const [storedLocation, setStoredLocation] = useState("");
-  const { state, dispatch } = useSettings()
+  const { state, dispatch } = useSettings();
 
   const onChangeEnabled = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnabled(event.target.checked);

@@ -19,13 +19,13 @@ export const TodoistPage = () => {
   const { state, dispatch } = useSettings();
 
   const storeSettings = () => {
-    dispatch(storeTodoist({apiKey: apiKey, filter: filter}))
+    dispatch(storeTodoist({ apiKey: apiKey, filter: filter }));
   };
 
   const onChangeEnabled = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnabled(event.target.checked);
     if (!event.target.checked) {
-      dispatch(clearTodoist())
+      dispatch(clearTodoist());
     } else {
       storeSettings();
     }
@@ -47,7 +47,9 @@ export const TodoistPage = () => {
 
   return (
     <>
-      <Text fontSize="md">The Todoist integration fetches tasks from your Todoist.</Text>
+      <Text fontSize="md">
+        The Todoist integration fetches tasks from your Todoist.
+      </Text>
       <FormControl id="enabled" display="flex" alignItems="center" marginY="2">
         <Switch
           id="enabled-switch"

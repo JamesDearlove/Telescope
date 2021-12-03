@@ -35,15 +35,15 @@ const openBookmarks = (): Bookmark[] => {
 };
 
 const openTodoist = (): TodoistState | null => {
-  const apiKey = localStorage.getItem(localStorageKeys.todoistApiKey)
-  const filter = localStorage.getItem(localStorageKeys.todoistFilter)
+  const apiKey = localStorage.getItem(localStorageKeys.todoistApiKey);
+  const filter = localStorage.getItem(localStorageKeys.todoistFilter);
 
   if (apiKey === null) {
-    return null
+    return null;
   }
 
-  return { apiKey: apiKey, filter: filter}
-}
+  return { apiKey: apiKey, filter: filter };
+};
 
 export const initialState: State = {
   backgroundImage: localStorage.getItem(localStorageKeys.backgroundImgUrl),

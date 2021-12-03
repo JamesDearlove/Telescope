@@ -21,5 +21,3 @@ export const SettingProvider: React.FC = ({ children }) => {
     </SettingContext.Provider>
   );
 };
-
-

@@ -74,7 +74,10 @@ const WeatherComponent = (props: { location: string }) => {
             paddingX={4}
             paddingY={2}
           >
-            <Text>{locationQuery.data?.data?.name}, {locationQuery.data?.data?.state}</Text>
+            <Text>
+              {locationQuery.data?.data?.name},{" "}
+              {locationQuery.data?.data?.state}
+            </Text>
             <Text>
               Feels Like: {observationQuery.data?.data?.temp_feels_like}&#8451;
             </Text>
@@ -86,7 +89,11 @@ const WeatherComponent = (props: { location: string }) => {
 };
 
 export const Weather = () => {
-  const { state } = useSettings()
+  const { state } = useSettings();
 
-  return state.bomGeohash === null ? <></> : <WeatherComponent location={state.bomGeohash} />;
+  return state.bomGeohash === null ? (
+    <></>
+  ) : (
+    <WeatherComponent location={state.bomGeohash} />
+  );
 };

@@ -55,8 +55,8 @@ const BookmarkItem = (props: Bookmark) => {
 };
 
 export const Bookmarks = () => {
-  const { state } = useSettings()
-  const items = state.bookmarks
+  const { state } = useSettings();
+  const items = state.bookmarks;
 
   return (
     <Center alignSelf="flex-start">

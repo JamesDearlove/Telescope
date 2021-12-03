@@ -86,7 +86,7 @@ export const TodoItems = () => {
   const background = useColorModeValue("gray.100", "gray.700");
   const border = useColorModeValue("gray.300", "gray.800");
 
-  const { state } = useSettings()
+  const { state } = useSettings();
 
   return (
     <Center>
