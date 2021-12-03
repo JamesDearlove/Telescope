@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 import { useSettings } from "../../state/hooks";
 import { storeBackgroundImg, storeDefaultSearchEngine } from "../../state/actions";
-import { SearchEngines } from "../Search";
 import { BuiltInSearchEngine } from "../../state/model";
 
 export const BackgroundSection = () => {
