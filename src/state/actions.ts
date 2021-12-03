@@ -1,22 +1,17 @@
 import { Bookmark } from "../components/Bookmarks";
-import { State } from "./model";
+import { localStorageKeys, State, TodoistState } from "./model";
 
 enum ActionTypes {
   LOAD_SETTINGS = "LOAD_SETTINGS",
   SAVE_BACKGROUNDIMG = "SAVE_BACKGROUNDIMG",
   SAVE_BOOKMARKS = "SAVE_BOOKMARKS",
+  SAVE_TODOIST = "SAVE_TODOIST",
+  CLEAR_TODOIST = "CLEAR_TODOIST",
 }
-
-const localStorageKeys = {
-  todoistApiKey: "todoist-api-key",
-  todoistFilter: "todoist-filter",
-  backgroundImgUrl: "background-image-url",
-  bookmarkItems: "bookmark-items",
-  bomGeohash: "weather-bom-geohash",
-};
 
 export type Action =
   | { type: ActionTypes.LOAD_SETTINGS }
+  | { type: ActionTypes.CLEAR_TODOIST }
   | { type: ActionTypes; payload: { value: any } };
 
 /**
@@ -44,6 +39,17 @@ export const storeBookmarks = (bookmarks: Bookmark[]): Action => ({
   },
 });
 
+export const storeTodoist = (values: TodoistState): Action => ({
+  type: ActionTypes.SAVE_TODOIST,
+  payload: {
+    value: values,
+  },
+});
+
+export const clearTodoist = (): Action => ({
+  type: ActionTypes.CLEAR_TODOIST,
+});
+
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case ActionTypes.LOAD_SETTINGS:
@@ -68,6 +74,23 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         bookmarks: action.payload.value,
       };
+    case ActionTypes.SAVE_TODOIST:
+      localStorage.setItem(
+        localStorageKeys.todoistApiKey,
+        action.payload.value.apiKey
+      );
+      localStorage.setItem(
+        localStorageKeys.todoistFilter,
+        action.payload.value.filter
+      );
+      return {
+        ...state,
+        todoist: action.payload.value,
+      };
+    case ActionTypes.CLEAR_TODOIST:
+      localStorage.removeItem(localStorageKeys.todoistApiKey);
+      localStorage.removeItem(localStorageKeys.todoistFilter);
+      return { ...state, todoist: null };
     default:
       throw new Error("Invalid state action.");
   }

@@ -7,7 +7,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useSetting } from "../state/hooks";
+import { useSettings } from "../state/hooks";
 
 export interface Bookmark {
   name: string;
@@ -55,7 +55,7 @@ const BookmarkItem = (props: Bookmark) => {
 };
 
 export const Bookmarks = () => {
-  const { state } = useSetting()
+  const { state } = useSettings()
   const items = state.bookmarks
 
   return (

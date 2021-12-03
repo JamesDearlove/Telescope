@@ -8,12 +8,12 @@ import {
   Select,
   useColorMode,
 } from "@chakra-ui/react";
-import { useSetting } from "../../state/hooks";
+import { useSettings } from "../../state/hooks";
 import { storeBackgroundImg } from "../../state/actions";
 
 export const BackgroundSection = () => {
   const [backgroundURL, setBackgroundURL] = useState<string>("");
-  const { state, dispatch } = useSetting();
+  const { state, dispatch } = useSettings();
 
   useEffect(() => {
     setBackgroundURL(state.backgroundImage ?? "");

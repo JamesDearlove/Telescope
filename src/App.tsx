@@ -6,10 +6,10 @@ import Settings from "./components/settings";
 import { TodoItems } from "./components/Todoist";
 import { CommandBar } from "./components/CommandBar";
 
-import { useSetting } from "./state/hooks";
+import { useSettings } from "./state/hooks";
 
 function App() {
-  const { state } = useSetting();
+  const { state } = useSettings();
   const backgroundImg = state.backgroundImage
 
   const imageStyle =

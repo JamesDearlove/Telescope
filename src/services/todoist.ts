@@ -51,6 +51,7 @@ export interface TodoistProject {
  * @returns The stored Todoist API key.
  */
 const getApiKey = (): string => {
+  // TODO: Refactor this to not interface with LocalStorage directly.
   const apiKey = localStorage.getItem(todoistApiKey);
   if (!apiKey) {
     throw new Error("No Todoist API key.");

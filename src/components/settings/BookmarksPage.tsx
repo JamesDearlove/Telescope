@@ -11,13 +11,13 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { Bookmark } from "../Bookmarks";
-import { useSetting } from "../../state/hooks";
+import { useSettings } from "../../state/hooks";
 import { storeBookmarks } from "../../state/actions";
 
 export const BookmarksPage = () => {
   const [items, setItems] = useState<Bookmark[]>([]);
   const [updateStore, setUpdateStore] = useState(false);
-  const { state, dispatch } = useSetting();
+  const { state, dispatch } = useSettings();
 
   useEffect(() => {
     setItems(state.bookmarks)
