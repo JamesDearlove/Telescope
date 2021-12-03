@@ -1,8 +1,10 @@
+import { Bookmark } from "../components/Bookmarks";
 import { State } from "./model";
 
 enum ActionTypes {
   LOAD_SETTINGS = "LOAD_SETTINGS",
   SAVE_BACKGROUNDIMG = "SAVE_BACKGROUNDIMG",
+  SAVE_BOOKMARKS = "SAVE_BOOKMARKS",
 }
 
 const localStorageKeys = {
@@ -15,7 +17,7 @@ const localStorageKeys = {
 
 export type Action =
   | { type: ActionTypes.LOAD_SETTINGS }
-  | { type: ActionTypes; payload: { value: string } };
+  | { type: ActionTypes; payload: { value: any } };
 
 /**
  * Loads settings from LocalStorage
@@ -35,6 +37,13 @@ export const storeBackgroundImg = (url: string): Action => ({
   },
 });
 
+export const storeBookmarks = (bookmarks: Bookmark[]): Action => ({
+  type: ActionTypes.SAVE_BOOKMARKS,
+  payload: {
+    value: bookmarks,
+  },
+});
+
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case ActionTypes.LOAD_SETTINGS:
@@ -44,10 +53,20 @@ export const reducer = (state: State, action: Action): State => {
           localStorage.getItem(localStorageKeys.backgroundImgUrl) ?? "",
       };
     case ActionTypes.SAVE_BACKGROUNDIMG:
-      localStorage.setItem(localStorageKeys.backgroundImgUrl, action.payload.value);
+      localStorage.setItem(
+        localStorageKeys.backgroundImgUrl,
+        action.payload.value
+      );
       return {
         ...state,
         backgroundImage: action.payload.value,
+      };
+    case ActionTypes.SAVE_BOOKMARKS:
+      const settingValue = JSON.stringify(action.payload.value);
+      localStorage.setItem(localStorageKeys.bookmarkItems, settingValue);
+      return {
+        ...state,
+        bookmarks: action.payload.value,
       };
     default:
       throw new Error("Invalid state action.");

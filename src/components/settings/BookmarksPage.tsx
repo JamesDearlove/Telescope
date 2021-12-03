@@ -9,38 +9,22 @@ import {
   Th,
   Thead,
   Tr,
-  useToast,
 } from "@chakra-ui/react";
-import { bookmarkItems } from "../../settingNames";
 import { Bookmark } from "../Bookmarks";
+import { useSetting } from "../../state/hooks";
+import { storeBookmarks } from "../../state/actions";
 
 export const BookmarksPage = () => {
   const [items, setItems] = useState<Bookmark[]>([]);
   const [updateStore, setUpdateStore] = useState(false);
-  const toast = useToast();
+  const { state, dispatch } = useSetting();
 
   useEffect(() => {
-    const setting = localStorage.getItem(bookmarkItems);
-    if (setting && setting !== "") {
-      try {
-        const bookmarks = JSON.parse(setting || "");
-        setItems(bookmarks);
-      } catch (exception) {
-        console.error(exception);
-        toast({
-          title: "Bookmark Loading Error",
-          description: "Unable to parse bookmarks JSON.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-      }
-    }
-  }, [toast]);
+    setItems(state.bookmarks)
+  }, [state.bookmarks]);
 
   const saveBookmarks = () => {
-    const settingValue = JSON.stringify(items);
-    localStorage.setItem(bookmarkItems, settingValue);
+    dispatch(storeBookmarks(items))
     setUpdateStore(false);
   };
 
