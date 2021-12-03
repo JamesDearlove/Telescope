@@ -15,7 +15,7 @@ import {
   getLocationInfo,
 } from "./data";
 import { weatherIcon } from "./Icons";
-import { bomGeohash } from "../../settingNames";
+import { useSettings } from "../../state/hooks";
 
 const WeatherComponent = (props: { location: string }) => {
   const location = props.location;
@@ -74,7 +74,10 @@ const WeatherComponent = (props: { location: string }) => {
             paddingX={4}
             paddingY={2}
           >
-            <Text>{locationQuery.data?.data?.name}, {locationQuery.data?.data?.state}</Text>
+            <Text>
+              {locationQuery.data?.data?.name},{" "}
+              {locationQuery.data?.data?.state}
+            </Text>
             <Text>
               Feels Like: {observationQuery.data?.data?.temp_feels_like}&#8451;
             </Text>
@@ -86,7 +89,11 @@ const WeatherComponent = (props: { location: string }) => {
 };
 
 export const Weather = () => {
-  const location = localStorage.getItem(bomGeohash) || "";
+  const { state } = useSettings();
 
-  return location === "" ? <></> : <WeatherComponent location={location} />;
+  return state.bomGeohash === null ? (
+    <></>
+  ) : (
+    <WeatherComponent location={state.bomGeohash} />
+  );
 };

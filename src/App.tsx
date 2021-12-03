@@ -2,13 +2,15 @@ import React from "react";
 import { Bookmarks } from "./components/Bookmarks";
 import { Box, Grid } from "@chakra-ui/react";
 
-import { backgroundImgUrl } from "./settingNames";
 import Settings from "./components/settings";
 import { TodoItems } from "./components/Todoist";
 import { CommandBar } from "./components/CommandBar";
 
+import { useSettings } from "./state/hooks";
+
 function App() {
-  const backgroundImg = localStorage.getItem(backgroundImgUrl);
+  const { state } = useSettings();
+  const backgroundImg = state.backgroundImage
 
   const imageStyle =
     backgroundImg !== ""

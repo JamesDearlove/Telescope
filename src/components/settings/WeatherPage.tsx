@@ -10,10 +10,11 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { bomGeohash } from "../../settingNames";
 import { getLocationInfo, searchLocations } from "../weather/data";
 import { useQuery } from "react-query";
 import { useCombobox } from "downshift";
+import { useSettings } from "../../state/hooks";
+import { storeBomGeohash } from "../../state/actions";
 
 interface DropdownComboboxProps {
   isDisabled: boolean;
@@ -116,22 +117,23 @@ export const WeatherPage = () => {
   const [enabled, setEnabled] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState<any>();
   const [storedLocation, setStoredLocation] = useState("");
+  const { state, dispatch } = useSettings();
 
   const onChangeEnabled = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnabled(event.target.checked);
     if (!event.target.checked) {
-      localStorage.removeItem(bomGeohash);
+      dispatch(storeBomGeohash(null));
     }
   };
 
   const onLocationSelected = (selected: any) => {
     setSelectedLocation(selected);
-    localStorage.setItem(bomGeohash, selected?.geohash);
+    dispatch(storeBomGeohash(selected?.geohash));
   };
 
   useEffect(() => {
     const loadData = async () => {
-      const geohash = localStorage.getItem(bomGeohash);
+      const geohash = state.bomGeohash;
 
       if (geohash) {
         const res = await getLocationInfo(geohash || "");
@@ -142,7 +144,7 @@ export const WeatherPage = () => {
     };
 
     loadData();
-  }, []);
+  }, [state.bomGeohash]);
 
   return (
     <>

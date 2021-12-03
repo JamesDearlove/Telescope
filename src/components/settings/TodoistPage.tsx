@@ -9,23 +9,23 @@ import {
   Switch,
   Text,
 } from "@chakra-ui/react";
-import { todoistApiKey, todoistFilter } from "../../settingNames";
+import { useSettings } from "../../state/hooks";
+import { clearTodoist, storeTodoist } from "../../state/actions";
 
 export const TodoistPage = () => {
   const [enabled, setEnabled] = useState(false);
   const [apiKey, setApiKey] = useState<string>("");
   const [filter, setFilter] = useState<string>("");
+  const { state, dispatch } = useSettings();
 
   const storeSettings = () => {
-    localStorage.setItem(todoistApiKey, apiKey);
-    localStorage.setItem(todoistFilter, filter);
+    dispatch(storeTodoist({ apiKey: apiKey, filter: filter }));
   };
 
   const onChangeEnabled = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnabled(event.target.checked);
     if (!event.target.checked) {
-      localStorage.removeItem(todoistApiKey);
-      localStorage.removeItem(todoistFilter);
+      dispatch(clearTodoist());
     } else {
       storeSettings();
     }
@@ -40,16 +40,16 @@ export const TodoistPage = () => {
   };
 
   useEffect(() => {
-    const todoistKey = localStorage.getItem(todoistApiKey);
-
-    setApiKey(todoistKey || "");
-    setFilter(localStorage.getItem(todoistFilter) || "");
-    setEnabled(todoistKey !== null);
-  }, []);
+    setApiKey(state.todoist?.apiKey || "");
+    setFilter(state.todoist?.filter || "");
+    setEnabled(state.todoist !== null);
+  }, [state.todoist]);
 
   return (
     <>
-      <Text fontSize="md">The Todoist integration fetches tasks from your Todoist.</Text>
+      <Text fontSize="md">
+        The Todoist integration fetches tasks from your Todoist.
+      </Text>
       <FormControl id="enabled" display="flex" alignItems="center" marginY="2">
         <Switch
           id="enabled-switch"

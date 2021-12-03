@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -20,7 +20,7 @@ import {
   TodoistProject,
   closeTask,
 } from "../services/todoist";
-import { todoistApiKey } from "../settingNames";
+import { useSettings } from "../state/hooks";
 
 const TodoItem = (item: TodoistItem) => {
   const queryClient = useQueryClient();
@@ -86,16 +86,11 @@ export const TodoItems = () => {
   const background = useColorModeValue("gray.100", "gray.700");
   const border = useColorModeValue("gray.300", "gray.800");
 
-  const [todoistEnabled, setTodoistEnabled] = useState(false);
-
-  useEffect(() => {
-    const key = localStorage.getItem(todoistApiKey);
-    setTodoistEnabled(key !== null && key !== "");
-  }, []);
+  const { state } = useSettings();
 
   return (
     <Center>
-      {todoistEnabled && (
+      {state.todoist !== null && (
         <Box
           bg={background}
           w={96}
