@@ -1,5 +1,10 @@
 import { Bookmark } from "../components/Bookmarks";
-import { localStorageKeys, State, TodoistState } from "./model";
+import {
+  BuiltInSearchEngine,
+  localStorageKeys,
+  State,
+  TodoistState,
+} from "./model";
 
 enum ActionTypes {
   LOAD_SETTINGS = "LOAD_SETTINGS",
@@ -8,6 +13,7 @@ enum ActionTypes {
   SAVE_TODOIST = "SAVE_TODOIST",
   CLEAR_TODOIST = "CLEAR_TODOIST",
   SAVE_BOMGEOHASH = "SAVE_BOMGEOHASH",
+  STORE_DEFAULTSEARCH = "STORE_DEFAULTSEARCH",
 }
 
 export type Action =
@@ -61,6 +67,15 @@ export const storeTodoist = (values: TodoistState): Action => ({
  */
 export const storeBomGeohash = (value: string | null): Action => ({
   type: ActionTypes.SAVE_BOMGEOHASH,
+  payload: {
+    value: value,
+  },
+});
+
+export const storeDefaultSearchEngine = (
+  value: BuiltInSearchEngine
+): Action => ({
+  type: ActionTypes.STORE_DEFAULTSEARCH,
   payload: {
     value: value,
   },
@@ -123,6 +138,13 @@ export const reducer = (state: State, action: Action): State => {
         localStorage.setItem(localStorageKeys.bomGeohash, action.payload.value);
       }
       return { ...state, bomGeohash: action.payload.value };
+
+    case ActionTypes.STORE_DEFAULTSEARCH:
+      localStorage.setItem(
+        localStorageKeys.defaultSearchEngine,
+        action.payload.value
+      );
+      return { ...state, deafultSearchEngine: action.payload.value };
 
     default:
       throw new Error("Invalid state action.");

@@ -9,7 +9,9 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { useSettings } from "../../state/hooks";
-import { storeBackgroundImg } from "../../state/actions";
+import { storeBackgroundImg, storeDefaultSearchEngine } from "../../state/actions";
+import { SearchEngines } from "../Search";
+import { BuiltInSearchEngine } from "../../state/model";
 
 export const BackgroundSection = () => {
   const [backgroundURL, setBackgroundURL] = useState<string>("");
@@ -29,8 +31,25 @@ export const BackgroundSection = () => {
     setBackgroundURL(event.target.value);
   };
 
+  const onChangeSearch = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(storeDefaultSearchEngine(event.target.value as BuiltInSearchEngine))
+  };
+
   return (
     <>
+      <FormControl id="search-engine">
+        <FormLabel>Search Engine</FormLabel>
+        <Select
+          value={state.deafultSearchEngine}
+          onChange={onChangeSearch}
+        >
+          <option value="google">Google</option>
+          <option value="bing">Bing</option>
+          <option value="duckduckgo">DuckDuckGo</option>
+          <option value="ecosia">Ecosia</option>
+        </Select>
+        <FormHelperText></FormHelperText>
+      </FormControl>
       <FormControl id="background-type">
         <FormLabel>Background</FormLabel>
         <Select placeholder="URL" disabled={true} />

@@ -11,6 +11,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { sizeProps } from "./CommandBar";
+import { useSettings } from "../state/hooks";
+import { BuiltInSearchEngine } from "../state/model";
 
 const isURL = (str: string) => {
   // const expression = /([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/gm
@@ -20,12 +22,36 @@ const isURL = (str: string) => {
   return str.match(regex) != null;
 };
 
+export const SearchEngines: { [key: string]: { name: string; url: string } } = {
+  google: {
+    name: "Google",
+    url: "http://www.google.com/search?q=",
+  },
+  bing: {
+    name: "Bing",
+    url: "https://www.bing.com/search?q=",
+  },
+  duckduckgo: {
+    name: "DuckDuckGo",
+    url: "https://duckduckgo.com/?q=",
+  },
+  ecoscia: {
+    name: "Ecosia",
+    url: "https://www.ecosia.org/search?q=",
+  },
+};
+
 export const Search = () => {
   const [value, setValue] = useState("");
   const [autoComplete, setAutoComplete] = useState("");
 
   const background = useColorModeValue("gray.100", "gray.700");
   const border = useColorModeValue("gray.200", "gray.800");
+
+  const { state } = useSettings();
+
+  const searchUrl = (engine: BuiltInSearchEngine, searchTerm: string) =>
+    SearchEngines[engine].url + searchTerm;
 
   const onTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -49,16 +75,17 @@ export const Search = () => {
       case "":
         break;
       default:
-        window.location.href = `https://duckduckgo.com/?q=${value}`;
+        window.location.href = searchUrl(state.deafultSearchEngine, value);
         break;
     }
   };
 
   const generateOptions = (value: string) => {
-    if (value.startsWith("!")) {
-      setAutoComplete(`DuckDuckGo Bang: ${value}`);
-      return;
-    }
+    // TODO: Reimplement
+    // if (value.startsWith("!")) {
+    //   setAutoComplete(`DuckDuckGo Bang: ${value}`);
+    //   return;
+    // }
     if (isURL(value)) {
       setAutoComplete(`Navigate to ${value}`);
       return;
@@ -69,7 +96,11 @@ export const Search = () => {
         setAutoComplete("");
         break;
       default:
-        setAutoComplete(`Search: ${value}`);
+        setAutoComplete(
+          `Search with ${
+            SearchEngines[state.deafultSearchEngine].name
+          }: ${value}`
+        );
         break;
     }
   };

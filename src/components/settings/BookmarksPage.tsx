@@ -88,7 +88,7 @@ export const BookmarksPage = () => {
         </Thead>
         <Tbody>
           {items?.map((item, index) => (
-            <Tr>
+            <Tr key={index}>
               <Td padding={0}>
                 <Input
                   size="sm"

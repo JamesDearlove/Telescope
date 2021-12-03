@@ -5,6 +5,7 @@ export type State = {
   bookmarks: Bookmark[];
   todoist: TodoistState | null;
   bomGeohash: string | null;
+  deafultSearchEngine: BuiltInSearchEngine;
 };
 
 export type TodoistState = {
@@ -12,12 +13,15 @@ export type TodoistState = {
   filter: string | null;
 };
 
+export type BuiltInSearchEngine = "google" | "bing" | "duckduckgo" | "ecosia";
+
 export const localStorageKeys = {
   todoistApiKey: "todoist-api-key",
   todoistFilter: "todoist-filter",
   backgroundImgUrl: "background-image-url",
   bookmarkItems: "bookmark-items",
   bomGeohash: "weather-bom-geohash",
+  defaultSearchEngine: "default-search-engine",
 };
 
 const openBookmarks = (): Bookmark[] => {
@@ -50,4 +54,8 @@ export const initialState: State = {
   bookmarks: openBookmarks(),
   todoist: openTodoist(),
   bomGeohash: localStorage.getItem(localStorageKeys.bomGeohash),
+  deafultSearchEngine:
+    (localStorage.getItem(
+      localStorageKeys.defaultSearchEngine
+    ) as BuiltInSearchEngine) ?? "google",
 };
