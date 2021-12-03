@@ -5,7 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./theme";
-import { SettingProvider } from "./state/Settings";
+import { SettingProvider } from "./state/Context";
 
 const queryClient = new QueryClient();
 

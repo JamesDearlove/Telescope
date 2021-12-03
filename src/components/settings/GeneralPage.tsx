@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   FormControl,
@@ -8,23 +8,25 @@ import {
   Select,
   useColorMode,
 } from "@chakra-ui/react";
-import { backgroundImgUrl } from "../../settingNames";
-import { storeBackgroundImg, useSetting } from "../../state/Settings";
+import { useSetting } from "../../state/hooks";
+import { storeBackgroundImg } from "../../state/actions";
 
 export const BackgroundSection = () => {
-  // const [backgroundURL, setBackgroundURL] = useState<string>("");
+  const [backgroundURL, setBackgroundURL] = useState<string>("");
+  const { state, dispatch } = useSetting();
 
-  const { state, dispatch } = useSetting()
-  const backgroundURL = state.backgroundImage
+  useEffect(() => {
+    setBackgroundURL(state.backgroundImage);
+  }, [state.backgroundImage]);
 
   const storeSettings = () => {
-    localStorage.setItem(backgroundImgUrl, backgroundURL);
+    dispatch(storeBackgroundImg(backgroundURL));
   };
 
   const onChangeBackgroundURL = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    dispatch(storeBackgroundImg(event.target.value))
+    setBackgroundURL(event.target.value);
   };
 
   return (

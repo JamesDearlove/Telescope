@@ -1,21 +1,16 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { Bookmarks } from "./components/Bookmarks";
 import { Box, Grid } from "@chakra-ui/react";
 
-import { backgroundImgUrl } from "./settingNames";
 import Settings from "./components/settings";
 import { TodoItems } from "./components/Todoist";
 import { CommandBar } from "./components/CommandBar";
-import { loadSettings, SettingContext, useSetting } from "./state/Settings";
+
+import { useSetting } from "./state/hooks";
 
 function App() {
-  // const backgroundImg = localStorage.getItem(backgroundImgUrl);
-  const { state, dispatch } = useSetting();
+  const { state } = useSetting();
   const backgroundImg = state.backgroundImage
-
-  useEffect(() => {
-    dispatch(loadSettings())
-  }, [])
 
   const imageStyle =
     backgroundImg !== ""
