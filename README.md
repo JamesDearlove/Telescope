@@ -16,7 +16,15 @@ Future expansion plans include integrating with other information sources and se
 
 Telescope uses the [Yarn](https://yarnpkg.com/) package manager, run `yarn` to install the required dependencies.
 
-To start the local development server, run `yarn start`
+To start the local development server, run `yarn start`. By default the app will be hosted at `localhost:3000`
+
+To build the application, run `yarn build`. See below for building as an extension
+
+### Building as an Extension
+
+Building Telescope as a browser extension requires an additional manifest for the browser to recognise the app as an extension. 
+
+In the [extensions](/extensions) folder, there contains specific manfiests for Chromium based browsers and Firefox. Copy either of these to the build folder and rename it to `manifest.json` in order to use with your browser of choice. Once complete, you should be able to load the extension in developer mode into your browser.
 
 ## Contributing
 
