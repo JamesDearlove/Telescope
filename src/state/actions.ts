@@ -7,6 +7,7 @@ enum ActionTypes {
   SAVE_BOOKMARKS = "SAVE_BOOKMARKS",
   SAVE_TODOIST = "SAVE_TODOIST",
   CLEAR_TODOIST = "CLEAR_TODOIST",
+  SAVE_BOMGEOHASH = "SAVE_BOMGEOHASH",
 }
 
 export type Action =
@@ -46,6 +47,13 @@ export const storeTodoist = (values: TodoistState): Action => ({
   },
 });
 
+export const storeBomGeohash = (value: string | null): Action => ({
+  type: ActionTypes.SAVE_BOMGEOHASH,
+  payload: {
+    value: value,
+  },
+});
+
 export const clearTodoist = (): Action => ({
   type: ActionTypes.CLEAR_TODOIST,
 });
@@ -58,6 +66,7 @@ export const reducer = (state: State, action: Action): State => {
         backgroundImage:
           localStorage.getItem(localStorageKeys.backgroundImgUrl) ?? "",
       };
+
     case ActionTypes.SAVE_BACKGROUNDIMG:
       localStorage.setItem(
         localStorageKeys.backgroundImgUrl,
@@ -67,6 +76,7 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         backgroundImage: action.payload.value,
       };
+
     case ActionTypes.SAVE_BOOKMARKS:
       const settingValue = JSON.stringify(action.payload.value);
       localStorage.setItem(localStorageKeys.bookmarkItems, settingValue);
@@ -74,6 +84,7 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         bookmarks: action.payload.value,
       };
+
     case ActionTypes.SAVE_TODOIST:
       localStorage.setItem(
         localStorageKeys.todoistApiKey,
@@ -83,14 +94,21 @@ export const reducer = (state: State, action: Action): State => {
         localStorageKeys.todoistFilter,
         action.payload.value.filter
       );
-      return {
-        ...state,
-        todoist: action.payload.value,
-      };
+      return { ...state, todoist: action.payload.value };
+
     case ActionTypes.CLEAR_TODOIST:
       localStorage.removeItem(localStorageKeys.todoistApiKey);
       localStorage.removeItem(localStorageKeys.todoistFilter);
       return { ...state, todoist: null };
+
+    case ActionTypes.SAVE_BOMGEOHASH:
+      if (action.payload.value === null) {
+        localStorage.removeItem(localStorageKeys.bomGeohash);
+      } else {
+        localStorage.setItem(localStorageKeys.bomGeohash, action.payload.value);
+      }
+      return { ...state, bomGeohash: action.payload.value };
+      
     default:
       throw new Error("Invalid state action.");
   }

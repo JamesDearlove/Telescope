@@ -4,6 +4,7 @@ export type State = {
   backgroundImage: string | null;
   bookmarks: Bookmark[];
   todoist: TodoistState | null;
+  bomGeohash: string | null;
 };
 
 export type TodoistState = {
@@ -28,14 +29,6 @@ const openBookmarks = (): Bookmark[] => {
       return bookmarks;
     } catch (exception) {
       console.error(exception);
-
-      // toast({
-      //   title: "Bookmark Loading Error",
-      //   description: "Unable to parse bookmarks JSON.",
-      //   status: "error",
-      //   duration: 5000,
-      //   isClosable: true,
-      // });
     }
   }
   return [];
@@ -56,4 +49,5 @@ export const initialState: State = {
   backgroundImage: localStorage.getItem(localStorageKeys.backgroundImgUrl),
   bookmarks: openBookmarks(),
   todoist: openTodoist(),
+  bomGeohash: localStorage.getItem(localStorageKeys.bomGeohash),
 };

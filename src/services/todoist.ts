@@ -1,6 +1,6 @@
 import axios from "axios";
 import { formatRelative, parse } from "date-fns";
-import { todoistApiKey, todoistFilter } from "../settingNames";
+import { localStorageKeys } from "../state/model";
 
 const BASE_URL = "https://api.todoist.com/rest/v1/";
 
@@ -52,7 +52,7 @@ export interface TodoistProject {
  */
 const getApiKey = (): string => {
   // TODO: Refactor this to not interface with LocalStorage directly.
-  const apiKey = localStorage.getItem(todoistApiKey);
+  const apiKey = localStorage.getItem(localStorageKeys.todoistApiKey);
   if (!apiKey) {
     throw new Error("No Todoist API key.");
   }
@@ -101,7 +101,7 @@ const postData = async (endpoint: string, content?: any) => {
  */
 export const getTasks = async (): Promise<TodoistItem[] | undefined> => {
   const filter =
-    localStorage.getItem(todoistFilter) ||
+    localStorage.getItem(localStorageKeys.todoistFilter) ||
     "(today | overdue) & !assigned to: others";
 
   return getData("tasks", { filter: filter });
