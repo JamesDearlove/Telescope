@@ -17,11 +17,11 @@ Future expansion plans include integrating with other information sources and se
 
 ## Development
 
-Telescope uses the [Yarn](https://yarnpkg.com/) package manager, run `yarn` to install the required dependencies.
+Telescope uses the [npm](https://npmjs.com/) package manager, run `npm start` to install the required dependencies.
 
-To start the local development server, run `yarn start`. By default the app will be hosted at `localhost:3000`
+To start the local development server, run `npm start`. By default the app will be hosted at `localhost:3000`
 
-To build the application, run `yarn build`. See below for building as an extension
+To build the application, run `npm build`. See below for building as an extension
 
 ### Building as an Extension
 

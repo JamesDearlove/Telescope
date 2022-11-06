@@ -12,7 +12,11 @@ export const SettingContext = createContext<Store>({
   dispatch: () => {},
 });
 
-export const SettingProvider: React.FC = ({ children }) => {
+interface SettingProviderProps {
+  children?: React.ReactNode
+}
+
+export const SettingProvider: React.FC<SettingProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (

@@ -37,7 +37,6 @@ const DropdownCombobox = (props: DropdownComboboxProps) => {
     getLabelProps,
     getMenuProps,
     getInputProps,
-    getComboboxProps,
     highlightedIndex,
     getItemProps,
     openMenu,
@@ -71,7 +70,7 @@ const DropdownCombobox = (props: DropdownComboboxProps) => {
       {props.formLabel && (
         <FormLabel {...getLabelProps()}>{props.formLabel}</FormLabel>
       )}
-      <div {...getComboboxProps()}>
+      <div>
         <Input
           isDisabled={props.isDisabled}
           onFocus={openMenu}
