@@ -2,46 +2,47 @@ import axios from "axios";
 import { formatRelative, parse } from "date-fns";
 import { localStorageKeys } from "../state/model";
 
-const BASE_URL = "https://api.todoist.com/rest/v1/";
+const BASE_URL = "https://api.todoist.com/rest/v2/";
 
 export interface TodoistItem {
-  id: number;
-  project_id: number;
-  section_id: number;
+  id: string;
+  project_id: string;
+  section_id: string;
   content: string;
   description: string;
-  completed: boolean;
-  label_ids: number[];
-  parent_id: number;
+  is_completed: boolean;
+  labels: string[];
+  parent_id: string | null;
   order: number;
   priority: 1 | 2 | 3 | 4 | undefined;
-  due: TodoistDue;
+  due: TodoistDue | null;
   url: string;
   comment_count: number;
-  assignee: number;
-  assigner: number;
+  assignee_id: string | null;
+  assigner_id: string | null;
+  creator_id: string;
+  // created_at: 
 }
 
 export interface TodoistDue {
   string: string;
   date: string;
-  recurring: boolean;
+  is_recurring: boolean;
   datetime?: string;
   timezone?: string;
 }
 
 export interface TodoistProject {
-  id: number;
+  id: string;
   name: string;
   color: number;
-  parent_id: number;
+  parent_id: string | null;
   order: number;
   comment_count: number;
-  shared: boolean;
-  favourite: boolean;
-  inbox_project: boolean;
-  team_inbox: boolean;
-  sync_id: number;
+  is_shared: boolean;
+  is_favourite: boolean;
+  is_inbox_project: boolean;
+  is_team_inbox: boolean;
   url: string;
 }
 
@@ -119,7 +120,7 @@ export const getProjects = async (): Promise<TodoistProject[] | undefined> => {
  * Closes a task that is currently open.
  * @param taskId The task to close
  */
-export const closeTask = async (taskId: Number) => {
+export const closeTask = async (taskId: string) => {
   return postData(`tasks/${taskId}/close`);
 };
 

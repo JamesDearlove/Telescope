@@ -25,14 +25,14 @@ import { useSettings } from "../state/hooks";
 const TodoItem = (item: TodoistItem) => {
   const queryClient = useQueryClient();
   const projectQuery = useQuery("projects", getProjects);
-  const completeMutation = useMutation((id: Number) => closeTask(id), {
+  const completeMutation = useMutation((id: string) => closeTask(id), {
     onSuccess: () => {
       queryClient.invalidateQueries("tasks");
     },
   });
   const [open, setOpen] = useState(false);
 
-  const getProject = (projectId: number): TodoistProject | undefined => {
+  const getProject = (projectId: string): TodoistProject | undefined => {
     return projectQuery.data?.find((item) => item.id === projectId);
   };
 
