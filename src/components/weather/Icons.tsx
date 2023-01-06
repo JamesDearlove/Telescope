@@ -20,6 +20,8 @@ import {
   WiWindy,
 } from "react-icons/wi";
 
+export const getIcon = (icon: string, isNight: boolean) => isNight ? weatherIconNight[icon] : undefined ?? weatherIcon[icon]
+
 export const weatherIcon: {[key: string]: IconType} = {
   clear: WiNightClear,
   cloudy: WiCloudy,
@@ -57,4 +59,5 @@ export const weatherIconNight: {[key: string]: IconType} = {
   partly_cloudy: WiNightAltCloudy,
   shower: WiNightAltShowers,
   showers: WiNightAltShowers,
+  sunny: WiNightClear,
 };
