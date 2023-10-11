@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Center, Flex } from "@chakra-ui/react";
 
 import { Search } from "./Search";

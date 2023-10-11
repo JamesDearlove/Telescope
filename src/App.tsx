@@ -1,4 +1,3 @@
-import React from "react";
 import { Bookmarks } from "./components/Bookmarks";
 import { Box, Grid } from "@chakra-ui/react";
 

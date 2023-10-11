@@ -1,4 +1,3 @@
-import React from "react";
 import { GeneralPage } from "./GeneralPage";
 import { BookmarksPage } from "./BookmarksPage";
 import { TodoistPage } from "./TodoistPage";

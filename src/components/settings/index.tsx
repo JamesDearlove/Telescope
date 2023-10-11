@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { SettingsIcon } from "@chakra-ui/icons";
 import { IconButton } from "@chakra-ui/react";
 import { Dialog } from "./Dialog";

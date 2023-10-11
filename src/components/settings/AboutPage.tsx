@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, Link, Stack, Text } from "@chakra-ui/react";
 
 export const AboutPage = () => {

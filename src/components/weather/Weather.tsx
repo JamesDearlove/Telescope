@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Flex,
@@ -15,7 +15,7 @@ import {
   getHourlyForecast,
   getLocationInfo,
 } from "./data";
-import { getIcon, weatherIcon, weatherIconNight } from "./Icons";
+import { getIcon } from "./Icons";
 import { useSettings } from "../../state/hooks";
 import { sizeProps } from "../CommandBar";
 
