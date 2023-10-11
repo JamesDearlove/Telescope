@@ -12,7 +12,7 @@ function App() {
   const backgroundImg = state.backgroundImage
 
   const imageStyle =
-    backgroundImg !== ""
+    backgroundImg && backgroundImg !== ""
       ? `url(${backgroundImg}) no-repeat center center fixed`
       : "";
 
