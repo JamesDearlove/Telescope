@@ -37,18 +37,12 @@ export const AboutPage = () => {
         >
           GitHub
         </Button>
-      </Stack>
-      <Stack marginTop={4} direction="row" spacing={2}>
-        <Button
-          size="sm"
-          onClick={() => onClickNavigate("https://twitter.com/ItsJimmyD")}
-        >
-          Twitter
-        </Button>
         <Button size="sm" onClick={() => onClickNavigate("https://jimmyd.dev")}>
           My Other Projects
         </Button>
+
       </Stack>
+      <Text fontSize="xs" marginTop={2}>Version: {APP_VERSION} ({COMMIT_HASH})</Text>
     </>
   );
 };
