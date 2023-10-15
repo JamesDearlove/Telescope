@@ -1,5 +1,6 @@
 import { Bookmark } from "../components/Bookmarks";
 import {
+  BgOption,
   BuiltInSearchEngine,
   localStorageKeys,
   State,
@@ -8,6 +9,7 @@ import {
 
 enum ActionTypes {
   LOAD_SETTINGS = "LOAD_SETTINGS",
+  SAVE_BGOPTION = "SAVE_BGOPTION",
   SAVE_BACKGROUNDIMG = "SAVE_BACKGROUNDIMG",
   SAVE_BOOKMARKS = "SAVE_BOOKMARKS",
   SAVE_TODOIST = "SAVE_TODOIST",
@@ -38,6 +40,17 @@ export const storeBackgroundImg = (url: string): Action => ({
     value: url,
   },
 });
+
+/**
+ * Stores the selected background option.
+ * @param option Option to set the background to 
+ */
+export const storeBgOption = (option: BgOption): Action => ({
+  type: ActionTypes.SAVE_BGOPTION,
+  payload: {
+    value: option
+  }
+})
 
 /**
  * Stores bookmarks in LocalStorage.
@@ -105,6 +118,16 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         backgroundImage: action.payload.value,
+      };
+
+    case ActionTypes.SAVE_BGOPTION:
+      localStorage.setItem(
+        localStorageKeys.bgOption,
+        action.payload.value
+      );
+      return {
+        ...state,
+        bgOption: action.payload.value,
       };
 
     case ActionTypes.SAVE_BOOKMARKS:

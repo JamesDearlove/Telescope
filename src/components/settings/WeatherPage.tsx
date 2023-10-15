@@ -149,7 +149,7 @@ export const WeatherPage = () => {
     <>
       <Text fontSize="md">
         The weather integration fetches weather data from the Australian Burearu
-        of Meteorology (BoM). More providers coming soon.
+        of Meteorology (BOM). 
       </Text>
       <FormControl id="enabled" display="flex" alignItems="center" marginY="2">
         <Switch

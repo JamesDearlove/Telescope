@@ -6,10 +6,14 @@ import { TodoItems } from "./components/Todoist";
 import { CommandBar } from "./components/CommandBar";
 
 import { useSettings } from "./state/hooks";
+import { getBgUrl } from "./services/background";
 
 function App() {
   const { state } = useSettings();
-  const backgroundImg = state.backgroundImage
+  const bgOption = state.bgOption;
+
+  const backgroundImg =
+    bgOption === "url" ? state.backgroundImage : getBgUrl(bgOption);
 
   const imageStyle =
     backgroundImg && backgroundImg !== ""
