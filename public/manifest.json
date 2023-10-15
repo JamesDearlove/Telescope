@@ -20,5 +20,10 @@
         "128": "logo128.png",
         "192": "logo192.png",
         "512": "logo512.png"
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "{05588123-f4ce-4972-b6a4-b3c3ba71fc85}"
+        }
     }
 }
