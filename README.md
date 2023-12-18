@@ -2,9 +2,9 @@
 
 A new tab page focused on all the information you need right now.
 
-Available as a [Firefox](https://addons.mozilla.org/en-US/firefox/addon/telescope) or [Chrome](https://chrome.google.com/webstore/detail/telescope-new-tab-page/jmgkadnapnlgpefplbocbfhmgphecgfi) extension, and on the web at https://telescope.jimmyd.dev
+Available as a [Firefox](https://addons.mozilla.org/firefox/addon/telescope) or [Chrome](https://chrome.google.com/webstore/detail/telescope-new-tab-page/jmgkadnapnlgpefplbocbfhmgphecgfi) extension, and on the web at https://telescope.jimmyd.dev
 
-<a href="https://addons.mozilla.org/en-US/firefox/addon/telescope"><img src="/docs/firefox-badge.svg" height="48"></a>
+<a href="https://addons.mozilla.org/firefox/addon/telescope"><img src="/docs/firefox-badge.svg" height="48"></a>
 <a href="https://chrome.google.com/webstore/detail/telescope-new-tab-page/jmgkadnapnlgpefplbocbfhmgphecgfi"><img src="/docs/chrome-badge.svg" height="48"></a>
 
 ## Rationale & Goals
