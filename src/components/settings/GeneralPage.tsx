@@ -61,10 +61,10 @@ export const BackgroundSection = () => {
         <FormLabel>Background</FormLabel>
         <Select value={state.bgOption as string} onChange={onChangeBgOption}>
           <option value="url">URL</option>
-          <option value="unsplash-landscape">Unsplash Landscapes</option>
-          <option value="unsplash-city">Unsplash City</option>
-          <option value="unsplash-space">Unsplash Space</option>
-          <option value="unsplash-featured">Unsplash Featured</option>
+          <option value="unsplash-animals">Unsplash - Animals Topic</option>
+          <option value="unsplash-nature">Unsplash - Nature Topic</option>
+          <option value="unsplash-travel">Unsplash - Travel Topic</option>
+          <option value="unsplash-wallpapers">Unsplash - Wallpapers Topic</option>
         </Select>
         <FormHelperText></FormHelperText>
       </FormControl>

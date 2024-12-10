@@ -18,11 +18,11 @@ export type BuiltInSearchEngine = "google" | "bing" | "duckduckgo" | "ecosia" | 
 
 export type BgOption =
   | "url"
-  | "unsplash-landscape"
-  | "unsplash-city"
-  | "unsplash-space"
-  | "unsplash-featured";
-
+  | "unsplash-animals"
+  | "unsplash-nature"
+  | "unsplash-travel"
+  | "unsplash-wallpapers";
+  
 export const localStorageKeys = {
   todoistApiKey: "todoist-api-key",
   todoistFilter: "todoist-filter",

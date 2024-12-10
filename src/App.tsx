@@ -1,7 +1,8 @@
-import { Bookmarks } from "./components/Bookmarks";
+import { useEffect, useState } from "react";
 import { Box, Grid } from "@chakra-ui/react";
 
 import Settings from "./components/settings";
+import { Bookmarks } from "./components/Bookmarks";
 import { TodoItems } from "./components/Todoist";
 import { CommandBar } from "./components/CommandBar";
 
@@ -12,8 +13,17 @@ function App() {
   const { state } = useSettings();
   const bgOption = state.bgOption;
 
-  const backgroundImg =
-    bgOption === "url" ? state.backgroundImage : getBgUrl(bgOption);
+  const [backgroundImg, setBackgroundImg] = useState("");
+
+  useEffect(() => {
+    if (bgOption === "url") {
+      setBackgroundImg(state.backgroundImage ?? "");
+    } else {
+      getBgUrl(bgOption)
+        .then((result) => setBackgroundImg(result))
+        .catch(() => setBackgroundImg(""));
+    }
+  }, [state]);
 
   const imageStyle =
     backgroundImg && backgroundImg !== ""
