@@ -39,6 +39,10 @@ export const SearchEngines: { [key: string]: { name: string; url: string } } = {
     name: "Ecosia",
     url: "https://www.ecosia.org/search?q=",
   },
+  kagi: {
+    name: "Kagi",
+    url: "https://kagi.com/search?q="
+  }
 };
 
 export const Search = () => {

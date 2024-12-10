@@ -14,7 +14,7 @@ export type TodoistState = {
   filter: string | null;
 };
 
-export type BuiltInSearchEngine = "google" | "bing" | "duckduckgo" | "ecosia";
+export type BuiltInSearchEngine = "google" | "bing" | "duckduckgo" | "ecosia" | "kagi";
 
 export type BgOption =
   | "url"

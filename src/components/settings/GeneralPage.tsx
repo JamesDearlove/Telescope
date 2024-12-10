@@ -53,6 +53,7 @@ export const BackgroundSection = () => {
           <option value="bing">Bing</option>
           <option value="duckduckgo">DuckDuckGo</option>
           <option value="ecosia">Ecosia</option>
+          <option value="kagi">Kagi</option>
         </Select>
         <FormHelperText></FormHelperText>
       </FormControl>
