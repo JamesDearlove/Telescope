@@ -1,8 +1,7 @@
-import axios from "axios";
 import { formatRelative, parse } from "date-fns";
 import { localStorageKeys } from "../state/model";
 
-const BASE_URL = "https://api.todoist.com/rest/v2/";
+const BASE_URL = "https://api.todoist.com/rest/v2";
 
 export interface TodoistItem {
   id: string;
@@ -21,7 +20,7 @@ export interface TodoistItem {
   assignee_id: string | null;
   assigner_id: string | null;
   creator_id: string;
-  // created_at: 
+  // created_at:
 }
 
 export interface TodoistDue {
@@ -66,15 +65,16 @@ const getApiKey = (): string => {
  * @param params (Optional) Any params for the request.
  * @returns The data if the request was successful.
  */
-const getData = async (endpoint: string, params?: any) => {
-  const response = await axios.get(endpoint, {
-    baseURL: BASE_URL,
-    params: params,
-    headers: { Authorization: `Bearer ${getApiKey()}` },
+const getData = async (endpoint: string) => {
+  const response = await fetch(`${BASE_URL}/${endpoint}?`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getApiKey()}`,
+    },
   });
 
   if (response.status === 200) {
-    return await response.data;
+    return await response.json();
   } else if (response.status === 204) {
     // No data to return.
     return {};
@@ -84,13 +84,17 @@ const getData = async (endpoint: string, params?: any) => {
 };
 
 const postData = async (endpoint: string, content?: any) => {
-  const response = await axios.post(endpoint, content, {
-    baseURL: BASE_URL,
-    headers: { Authorization: `Bearer ${getApiKey()}` },
+  const response = await fetch(`${BASE_URL}/${endpoint}?`, {
+    method: "POST",
+    body: JSON.stringify(content),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getApiKey()}`,
+    },
   });
 
   if (response.status === 200 || response.status === 204) {
-    return await response.data;
+    return await response.json();
   } else {
     throw Error(response.statusText);
   }
@@ -105,7 +109,7 @@ export const getTasks = async (): Promise<TodoistItem[] | undefined> => {
     localStorage.getItem(localStorageKeys.todoistFilter) ||
     "(today | overdue) & !assigned to: others";
 
-  return getData("tasks", { filter: filter });
+  return getData(`tasks?filter=${filter}`);
 };
 
 /**

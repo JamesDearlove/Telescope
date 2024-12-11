@@ -7,7 +7,6 @@
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "axios": "^1.5.1",
     "date-fns": "^2.30.0",
     "downshift": "^8.2.2",
     "framer-motion": "^10",
