@@ -7,19 +7,36 @@ const URLS = {
   "unsplash-travel": "https://worker.telescope.jimmyd.dev/unsplash/travel",
 };
 
-export const getBgUrl = async (option: BgOption | null) => {
+export interface BackgroundInfo {
+  bgUrl: string;
+  linkUrl: string;
+  author: string;
+  authorLink: string;
+  blurHash?: string;
+}
+
+export const getBgUrl = async (
+  option: BgOption | null
+): Promise<BackgroundInfo | undefined> => {
   if (option === null || option === "url") {
-    return "";
+    return undefined;
   }
 
-  // Ok and now to handle Unsplash, there is a proxy service for this so hit it, get the URL and return.
-  // TODO: We should attribute back, no requirement but there's no harm in doing it.
+  // Get unsplash details from the API proxy, and return useful info.
   const apiResponse = await fetch(URLS[option]);
   if (!apiResponse.ok) {
-    throw new Error(`Failed to fetch Unsplash wallpaper. Got ${apiResponse.status}`);
+    throw new Error(
+      `Failed to fetch Unsplash wallpaper. Got ${apiResponse.status}`
+    );
   }
 
-  const unsplashBody = await apiResponse.json()
+  const unsplashBody = await apiResponse.json();
 
-  return unsplashBody.urls.full
+  return {
+    bgUrl: unsplashBody.urls.raw,
+    linkUrl: unsplashBody.links.html,
+    author: unsplashBody.user.name,
+    authorLink: unsplashBody.user.links.html,
+    blurHash: unsplashBody.blur_hash,
+  };
 };

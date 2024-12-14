@@ -86,61 +86,68 @@ export const TodoItems = () => {
   const background = useColorModeValue("gray.100", "gray.700");
   const border = useColorModeValue("gray.300", "gray.800");
 
-  const { state } = useSettings();
-
   return (
     <Center>
-      {state.todoist !== null && (
-        <Box
-          bg={background}
-          w={96}
-          h={96}
-          borderColor={border}
-          borderWidth="1px"
-          borderRadius="md"
-          overflow="auto"
-          sx={{
-            "&::-webkit-scrollbar": {
-              width: 4,
-            },
-            "&::-webkit-scrollbar-thumb": {
-              borderColor: "transparent",
-              borderRadius: 8,
-              borderWidth: 4,
-              borderStyle: "solid",
-              backgroundClip: "content-box",
-              backgroundColor: border,
-            },
-          }}
-        >
-          <Flex>
-            <Text paddingTop={4} paddingLeft={4} marginBottom={2} fontSize="xl">
-              Today's Tasks
+      <Box
+        bg={background}
+        w={96}
+        h={96}
+        borderColor={border}
+        borderWidth="1px"
+        borderRadius="md"
+        overflow="auto"
+        sx={{
+          "&::-webkit-scrollbar": {
+            width: 4,
+          },
+          "&::-webkit-scrollbar-thumb": {
+            borderColor: "transparent",
+            borderRadius: 8,
+            borderWidth: 4,
+            borderStyle: "solid",
+            backgroundClip: "content-box",
+            backgroundColor: border,
+          },
+        }}
+      >
+        <Flex>
+          <Text paddingTop={4} paddingLeft={4} marginBottom={2} fontSize="xl">
+            Today's Tasks
+          </Text>
+          <Spacer />
+          {(taskQuery.isFetching || projectQuery.isFetching) && (
+            <Center paddingRight={4}>
+              <Spinner />
+            </Center>
+          )}
+        </Flex>
+        <Box>
+          {taskQuery.isLoading || projectQuery.isLoading ? (
+            <></>
+          ) : taskQuery.data?.length === 0 ? (
+            <Text fontSize="md" padding={4}>
+              You're done for the day!
             </Text>
-            <Spacer />
-            {(taskQuery.isFetching || projectQuery.isFetching) && (
-              <Center paddingRight={4}>
-                <Spinner />
-              </Center>
-            )}
-          </Flex>
-          <Box>
-            {taskQuery.isLoading || projectQuery.isLoading ? (
-              <></>
-            ) : taskQuery.data?.length === 0 ? (
-              <Text fontSize="md" padding={4}>
-                You're done for the day!
-              </Text>
-            ) : (
-              <Stack direction="column" spacing={0}>
-                {taskQuery.data?.map((item) => (
-                  <TodoItem key={item.id} {...item} />
-                ))}
-              </Stack>
-            )}
-          </Box>
+          ) : (
+            <Stack direction="column" spacing={0}>
+              {taskQuery.data?.map((item) => (
+                <TodoItem key={item.id} {...item} />
+              ))}
+            </Stack>
+          )}
         </Box>
-      )}
+      </Box>
     </Center>
   );
 };
+
+/**
+ * Wraps the TodoItems component in a check to see if it's enabled. 
+ */
+export const Todoist = () => {
+  const { state } = useSettings();
+
+  return state.todoist?.apiKey && <TodoItems />;
+};
+
+export default Todoist;

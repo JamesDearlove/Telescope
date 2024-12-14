@@ -92,9 +92,7 @@ export const TodoistPage = () => {
         />
         <FormHelperText>
           The default filter fetches tasks that are assigned to you and are
-          overdue or due today.
-          <br />
-          Check out{" "}
+          overdue or due today. Check out{" "}
           <Link
             color="blue.300"
             href="https://todoist.com/app/settings/integrations"
