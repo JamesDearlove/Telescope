@@ -19,15 +19,13 @@ Future expansion plans include integrating with other information sources and se
 
 Telescope uses the [npm](https://npmjs.com/) package manager, run `npm start` to install the required dependencies.
 
-To start the local development server, run `npm run dev`. By default the app will be hosted at `localhost:5173`
+To start the local development server, run `npm run dev`. The app will then be hosted at `localhost:5173`
 
-To build the application, run `npm build`. See below for building as an extension
+### Building
 
-### Building as an Extension
+To build the app, run `npm run build`. By default the `dist` folder output produces an output that can be run as a static web app or run unpackaged in a Chromium browser.
 
-Building Telescope as a browser extension requires an additional manifest for the browser to recognise the app as an extension.
-
-In the [extensions](/extensions) folder, there contains specific manfiests for Chromium based browsers and Firefox. Copy either of these to the build folder and rename it to `manifest.json` in order to use with your browser of choice. Once complete, you should be able to load the extension in developer mode into your browser.
+[!NOTE] Thanks to [this Chromium bug](https://issues.chromium.org/issues/41418973), the manifest is not identical between Firefox and Chromium extensions. To build with additional settings for Firefox ensure you define the `FIREFOX_BUILD` env variable. This can be done as so: `FIREFOX_BUILD=1 npm run build`
 
 ## Contributing
 

@@ -1,7 +1,7 @@
 {
     "name": "Telescope New Tab Page",
     "description": "A new tab page focused on all the information you need right now.",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "manifest_version": 3,
     "chrome_url_overrides": {
         "newtab": "index.html"
