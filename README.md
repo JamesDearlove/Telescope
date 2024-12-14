@@ -25,7 +25,8 @@ To start the local development server, run `npm run dev`. The app will then be h
 
 To build the app, run `npm run build`. By default the `dist` folder output produces an output that can be run as a static web app or run unpackaged in a Chromium browser.
 
-[!NOTE] Thanks to [this Chromium bug](https://issues.chromium.org/issues/41418973), the manifest is not identical between Firefox and Chromium extensions. To build with additional settings for Firefox ensure you define the `FIREFOX_BUILD` env variable. This can be done as so: `FIREFOX_BUILD=1 npm run build`
+> [!NOTE]
+> Thanks to [this Chromium bug](https://issues.chromium.org/issues/41418973), the manifest is not identical between Firefox and Chromium extensions. To build with additional settings for Firefox ensure you define the `FIREFOX_BUILD` env variable. This can be done as so: `FIREFOX_BUILD=1 npm run build`
 
 ## Contributing
 
